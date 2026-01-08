@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Row: Material Name, Unit, Status -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMaterialName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Cement"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="per bag"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                tools:text="Likely to Increase"
+                android:textColor="#D32F2F"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_trending_up" />
+        </RelativeLayout>
+
+        <!-- Price Details -->
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TableRow>
+                <TextView
+                    android:text="Current Avg Price"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/tvCurrentPrice"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="₹180" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+                <TextView
+                    android:text="Previous Price"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/tvPreviousPrice"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="₹200" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+                <TextView
+                    android:text="Change"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/tvChange"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="+7.1%"
+                    android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
+
+        <!-- Recommendation Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/recommendation_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_lightbulb"
+                app:tint="#1976D2" />
+
+            <TextView
+                android:id="@+id/tvRecommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textSize="12sp"
+                tools:text="Cement prices show an upward trend. Early purchase is recommended to avoid higher costs. Recommendation: Consider bulk purchase" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

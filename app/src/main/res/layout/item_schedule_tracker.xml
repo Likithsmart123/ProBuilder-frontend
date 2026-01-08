@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Section -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvProjectName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Villa Construction - Whitefield" />
+
+                <TextView
+                    android:id="@+id/tvClientName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    tools:text="Rakesh Kumar" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/status_badge_background"
+                tools:text="On Schedule" />
+        </RelativeLayout>
+
+        <!-- Progress Bar -->
+        <TextView
+            android:id="@+id/tvProgressPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:textColor="#1E6FE3"
+            android:textStyle="bold"
+            tools:text="68%" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressTint="#1E6FE3"
+            tools:progress="68" />
+
+        <!-- Dates Section -->
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TableRow>
+                <TextView
+                    android:drawablePadding="8dp"
+                    android:text="Planned Start"
+                    app:drawableStartCompat="@drawable/ic_calendar" />
+                <TextView
+                    android:id="@+id/tvPlannedStart"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="24 Jan 2025" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+                <TextView
+                    android:drawablePadding="8dp"
+                    android:text="Planned End"
+                    app:drawableStartCompat="@drawable/ic_calendar" />
+                <TextView
+                    android:id="@+id/tvPlannedEnd"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="15 Jun 2025" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="4dp">
+                <TextView
+                    android:drawablePadding="8dp"
+                    android:text="Expected Completion"
+                    app:drawableStartCompat="@drawable/ic_event_available" />
+                <TextView
+                    android:id="@+id/tvExpectedCompletion"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="15 Jun 2025" />
+            </TableRow>
+
+        </TableLayout>
+
+        <!-- Progress Analysis -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/progress_analysis_background"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress Analysis"
+                android:textStyle="bold" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                
+                <TextView
+                    android:id="@+id/tvDaysElapsed"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    tools:text="Days Elapsed: 45 / 152"/>
+                    
+                <TextView
+                    android:id="@+id/tvProgressTask"
+                     android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="Progress Task: 100%"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAnalysisText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:textColor="#D32F2F"
+            tools:visibility="visible"
+            tools:text="Project is significantly behind schedule."/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
