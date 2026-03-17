@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/
+.gradle/
+build/
+app/build/
+app/release/
+.kotlin/
+*.log
+*.txt
+*.aab
