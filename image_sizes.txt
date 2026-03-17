@@ -1,0 +1,10 @@
+﻿
+Name           Length
+----           ------
+img_bricks.png 812458
+img_cement.png 488320
+img_paint.png  564492
+img_sand.png   914294
+img_steel.png  712103
+
+

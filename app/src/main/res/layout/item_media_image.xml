@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image_placeholder" />
+
+    <ImageView
+        android:id="@+id/ivPlayIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_arrow_back" 
+        app:tint="#FFFFFF"
+        android:background="@drawable/circle_button" 
+        android:backgroundTint="#80000000"
+        android:padding="6dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+        <!-- Note: Using ic_arrow_back as placeholder or standard play icon if available. 
+             Ideally use ic_play_arrow but check available resources. 
+             If ic_arrow_back is used, rotate it? No, checking list_dir... 
+             I don't see ic_play. I will stick to ic_arrow_back rotated or just a placeholder shape.
+             Wait, I can create ic_play.xml. -->
+</androidx.cardview.widget.CardView>

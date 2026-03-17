@@ -1,7 +1,9 @@
 package com.example.probuilder;
 
-// CORRECTED: This is the single, definitive data model for a schedule item.
-public class ProjectSchedule {
+import java.io.Serializable;
+
+// CORRECTED: This is the single, definitive data model for a schedule item, implementing Serializable.
+public class ProjectSchedule implements Serializable {
     private final String projectName;
     private final String clientName;
     private final String status;
@@ -12,10 +14,11 @@ public class ProjectSchedule {
     private final String delay;
     private final int daysElapsed;
     private final int totalDays;
-    private final String progressRate; // CORRECTED: Field name
-    private final String analysisMessage; // CORRECTED: Field name
+    private final String progressRate;
+    private final String analysisMessage;
+    private final String currentStage;
 
-    public ProjectSchedule(String projectName, String clientName, String status, int progress, String plannedStart, String plannedEnd, String expectedCompletion, String delay, int daysElapsed, int totalDays, String progressRate, String analysisMessage) {
+    public ProjectSchedule(String projectName, String clientName, String status, int progress, String plannedStart, String plannedEnd, String expectedCompletion, String delay, int daysElapsed, int totalDays, String progressRate, String analysisMessage, String currentStage) {
         this.projectName = projectName;
         this.clientName = clientName;
         this.status = status;
@@ -28,6 +31,7 @@ public class ProjectSchedule {
         this.totalDays = totalDays;
         this.progressRate = progressRate;
         this.analysisMessage = analysisMessage;
+        this.currentStage = currentStage;
     }
 
     // Getters for all fields
@@ -71,13 +75,15 @@ public class ProjectSchedule {
         return totalDays;
     }
 
-    // CORRECTED: Getter name
     public String getProgressRate() {
         return progressRate;
     }
 
-    // CORRECTED: Getter name
     public String getAnalysisMessage() {
         return analysisMessage;
+    }
+
+    public String getCurrentStage() {
+        return currentStage;
     }
 }

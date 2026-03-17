@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // Handler to start the LoginActivity and close this SplashActivity after some seconds.
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, SubscriptionActivity.class);
             startActivity(intent);
             finish();
         }, SPLASH_DELAY);

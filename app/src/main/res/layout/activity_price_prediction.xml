@@ -59,14 +59,19 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPricePredictions"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/info_card"
-        android:layout_alignParentBottom="true"
-        android:clipToPadding="false"
-        android:paddingVertical="8dp" 
-        tools:listitem="@layout/item_price_prediction"/>
+        android:layout_below="@+id/info_card">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPricePredictions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="8dp"
+            tools:listitem="@layout/item_price_prediction"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

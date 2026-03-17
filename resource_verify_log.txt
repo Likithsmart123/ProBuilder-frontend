@@ -1,0 +1,78 @@
+Initialized native services in: C:\Users\hp\.gradle\native
+Initialized jansi services in: C:\Users\hp\.gradle\native
+The client will now receive all logging from the daemon (pid: 13408). The daemon log file: C:\Users\hp\.gradle\daemon\9.1.0\daemon-13408.out.log
+Starting 6th build in daemon [uptime: 15 mins 52.605 secs, performance: 99%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 12 worker leases.
+Now considering [C:\Users\hp\AndroidStudioProjects\ProBuilder] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\settings.gradle.kts'.
+Projects loaded. Root project using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Included projects: [root project 'ProBuilder', project ':app']
+
+> Configure project :
+Evaluating root project 'ProBuilder' using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.9.1', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.2.10', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.2.10', apply: false]
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\app\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.9.1']
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.2.10']
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.2.10']
+WARNING: The option setting 'android.enableAppCompileTimeRClass=true' is experimental.
+The current default is 'false'.
+Using default execution profile
+Build 97f67bab-1e57-41c5-93b4-422139d935b6 is started
+Using Kotlin Gradle Plugin gradle813 variant
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+All projects evaluated.
+Task path ':app:mergeReleaseResources' matched project ':app'
+Task name matched 'mergeReleaseResources'
+Selected primary task 'mergeReleaseResources' from project :app
+Tasks to be executed: [task ':app:preBuild', task ':app:preReleaseBuild', task ':app:generateReleaseResources', task ':app:mergeReleaseResources']
+Tasks that were excluded: []
+Resolve mutations for :app:preBuild (Thread[#597,Execution worker,5,main]) started.
+:app:preBuild (Thread[#597,Execution worker,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preReleaseBuild (Thread[#597,Execution worker,5,main]) started.
+:app:preReleaseBuild (Thread[#597,Execution worker,5,main]) started.
+
+> Task :app:preReleaseBuild UP-TO-DATE
+Skipping task ':app:preReleaseBuild' as it has no actions.
+Resolve mutations for :app:generateReleaseResources (Thread[#597,Execution worker,5,main]) started.
+:app:generateReleaseResources (Thread[#597,Execution worker,5,main]) started.
+
+> Task :app:generateReleaseResources UP-TO-DATE
+Caching disabled for task ':app:generateReleaseResources' because:
+  Build cache is disabled
+Skipping task ':app:generateReleaseResources' as it is up-to-date.
+Resolve mutations for :app:mergeReleaseResources (Thread[#597,Execution worker,5,main]) started.
+:app:mergeReleaseResources (Thread[#597,Execution worker,5,main]) started.
+
+> Task :app:mergeReleaseResources UP-TO-DATE
+Caching disabled for task ':app:mergeReleaseResources' because:
+  Build cache is disabled
+Skipping task ':app:mergeReleaseResources' as it is up-to-date.
+Build 97f67bab-1e57-41c5-93b4-422139d935b6 is closed
+
+[Incubating] Problems report is available at: file:///C:/Users/hp/AndroidStudioProjects/ProBuilder/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.1.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2s
+2 actionable tasks: 2 up-to-date
+Watched directory hierarchies: [C:\Users\hp\AndroidStudioProjects\ProBuilder]
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.1.0/userguide/configuration_cache_enabling.html

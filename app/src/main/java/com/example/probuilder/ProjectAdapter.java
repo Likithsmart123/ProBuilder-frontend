@@ -36,21 +36,42 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         return new ProjectViewHolder(view);
     }
 
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Project project);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
         Project project = projectList.get(position);
-        holder.tvProjectName.setText(project.getName());
-        holder.tvClientName.setText(project.getClientName());
-        String dates = project.getStartDate() + " - " + project.getEndDate();
-        holder.tvProjectDates.setText(dates);
-        holder.tvProjectStatus.setText(project.getStatus());
+        holder.tvProjectName.setText(project.title);
+        holder.tvClientName.setText(project.clientName);
         
-        // Dummy progress for now, can be calculated later
-        if ("Completed".equalsIgnoreCase(project.getStatus())) {
-            holder.projectProgressBar.setProgress(100);
+        String startDate = project.startDate;
+        String endDate = project.endDate;
+
+        if (startDate != null && !startDate.isEmpty() && !startDate.equals("null") && 
+            endDate != null && !endDate.isEmpty() && !endDate.equals("null")) {
+            holder.tvProjectDates.setText(startDate + " - " + endDate);
         } else {
-            holder.projectProgressBar.setProgress(50);
+            holder.tvProjectDates.setText("Dates not set");
         }
+
+        holder.tvProjectStatus.setText(project.status);
+        
+        // Use real progress from the model
+        holder.projectProgressBar.setProgress(project.overallProgress);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(project);
+            }
+        });
     }
 
     @Override
@@ -65,7 +86,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         } else {
             text = text.toLowerCase();
             for (Project item : projectListFull) {
-                if (item.getName().toLowerCase().contains(text) || item.getClientName().toLowerCase().contains(text)) {
+                String clientName = item.client != null ? item.client.name : "";
+                if (item.title.toLowerCase().contains(text) || clientName.toLowerCase().contains(text)) {
                     projectList.add(item);
                 }
             }

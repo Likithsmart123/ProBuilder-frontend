@@ -2,10 +2,15 @@ package com.example.probuilder;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,8 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,15 +29,19 @@ import java.util.Map;
 
 public class AddStockActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView actvMaterial;
+    private Spinner spinnerMaterial;
     private TextInputEditText etQuantity;
     private Button btnSave;
 
-    private Map<String, Integer> materialNameToIdMap = new HashMap<>();
-    private Integer selectedMaterialId = null;
+    private List<String> materialNames = new ArrayList<>();
+    private List<String> materialIds = new ArrayList<>();
+    private String selectedMaterialId = "";
 
-    private static final String MATERIALS_URL = "http://10.0.2.2:5000/materials?contractor_id=1";
-    private static final String ADD_STOCK_URL = "http://10.0.2.2:5000/add-stock";
+    // Loaded from SharedPreferences on startup
+    private String contractorId = "-1";
+
+    private static final String GET_MATERIALS_URL = Constants.BASE_URL + "get_materials.php";
+    private static final String ADD_STOCK_URL = Constants.BASE_URL + "add_stock.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,77 +53,107 @@ public class AddStockActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
 
-        actvMaterial = findViewById(R.id.actvMaterial);
+        spinnerMaterial = findViewById(R.id.spinnerMaterial);
         etQuantity = findViewById(R.id.etQuantity);
         btnSave = findViewById(R.id.btnSave);
 
+        // Load real contractor_id from SharedPreferences
+        android.content.SharedPreferences sp = getSharedPreferences("ProBuilderPrefs", MODE_PRIVATE);
+        contractorId = String.valueOf(sp.getInt("contractor_id", -1));
+
         loadMaterials();
 
-        actvMaterial.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedName = (String) parent.getItemAtPosition(position);
-            selectedMaterialId = materialNameToIdMap.get(selectedName);
+        spinnerMaterial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position >= 0 && position < materialIds.size()) {
+                    selectedMaterialId = materialIds.get(position);
+                    if (selectedMaterialId.isEmpty()) {
+                        Log.d("MATERIAL_SELECT", "No material selected");
+                    } else {
+                        Log.d("MATERIAL_SELECT", "Selected ID: " + selectedMaterialId);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedMaterialId = "";
+            }
         });
 
         btnSave.setOnClickListener(v -> saveStock());
     }
 
     private void loadMaterials() {
-        // CORRECTED: Using static data for UI verification as requested.
-        List<String> materialNames = new ArrayList<>();
-        materialNames.add("Cement");
-        materialNames.add("Sand");
-        materialNames.add("Bricks");
-        materialNames.add("Steel Rods");
-        materialNames.add("Paint");
-
-        materialNameToIdMap.clear();
-        materialNameToIdMap.put("Cement", 1);
-        materialNameToIdMap.put("Sand", 2);
-        materialNameToIdMap.put("Bricks", 3);
-        materialNameToIdMap.put("Steel Rods", 4);
-        materialNameToIdMap.put("Paint", 5);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, materialNames);
-        actvMaterial.setAdapter(adapter);
-        
-        /* --- Backend code is temporarily disabled ---
-        StringRequest request = new StringRequest(Request.Method.GET, MATERIALS_URL,
+        if ("-1".equals(contractorId)) {
+            Toast.makeText(this, "Error: User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Change to GET with contractor_id so materials are filtered per-contractor
+        StringRequest request = new StringRequest(
+                Request.Method.GET,
+                GET_MATERIALS_URL + "?contractor_id=" + contractorId,
                 response -> {
                     try {
-                        JSONObject root = new JSONObject(response);
-                        JSONArray materialsArray = root.getJSONArray("materials");
-                        List<String> backendMaterialNames = new ArrayList<>();
-                        materialNameToIdMap.clear();
+                        Log.d("MATERIAL_RAW", response);
 
-                        for (int i = 0; i < materialsArray.length(); i++) {
-                            JSONObject obj = materialsArray.getJSONObject(i);
-                            String name = obj.getString("name");
-                            int id = obj.getInt("id");
-                            backendMaterialNames.add(name);
-                            materialNameToIdMap.put(name, id);
+                        JSONArray arr = new JSONArray(response);
+
+                        materialNames.clear();
+                        materialIds.clear();
+
+                        // 🔹 DEFAULT OPTION
+                        materialNames.add("Select Material");
+                        materialIds.add("");
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            materialIds.add(obj.getString("id"));
+                            materialNames.add(obj.getString("material_name"));
                         }
 
-                        ArrayAdapter<String> backendAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, backendMaterialNames);
-                        actvMaterial.setAdapter(backendAdapter);
+                        ArrayAdapter<String> adapter =
+                                new ArrayAdapter<>(
+                                        this,
+                                        android.R.layout.simple_spinner_item,
+                                        materialNames
+                                );
+
+                        adapter.setDropDownViewResource(
+                                android.R.layout.simple_spinner_dropdown_item
+                        );
+
+                        spinnerMaterial.setAdapter(adapter);
 
                     } catch (Exception e) {
-                        Log.e("AddStockActivity", "JSON Parsing Error: " + e.getMessage());
+                        Log.e("MATERIAL_PARSE_ERROR", e.toString());
                         Toast.makeText(this, "Error parsing materials", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                    Log.e("AddStockActivity", "Volley Error: " + error.toString());
-                    Toast.makeText(this, "Failed to load materials", Toast.LENGTH_SHORT).show();
-                });
+                    Log.e("MATERIAL_NET_ERROR", error.toString());
+                    Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show();
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String token = getSharedPreferences("contractor_session", MODE_PRIVATE).getString("api_token", "");
+                if (!token.isEmpty()) {
+                    headers.put("Authorization", token);
+                }
+                return headers;
+            }
+        };
 
         Volley.newRequestQueue(this).add(request);
-        */
     }
 
     private void saveStock() {
         final String quantityStr = etQuantity.getText().toString().trim();
 
-        if (selectedMaterialId == null) {
+        if (selectedMaterialId.isEmpty()) {
             Toast.makeText(this, "Please select a material", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -128,20 +166,19 @@ public class AddStockActivity extends AppCompatActivity {
 
         btnSave.setEnabled(false); // Disable button
 
-        // Since we are using static data, we will just show a success message.
-        Toast.makeText(AddStockActivity.this, "Stock added successfully! (Static)", Toast.LENGTH_SHORT).show();
-        finish();
-
-        /* --- Backend code is temporarily disabled ---
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ADD_STOCK_URL,
                 response -> {
+                    String res = response.trim();
                     try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        if ("success".equals(jsonResponse.getString("status"))) {
+                        if (res.equals("success")) {
                             Toast.makeText(AddStockActivity.this, "Stock added successfully!", Toast.LENGTH_SHORT).show();
                             finish(); // Go back to the inventory screen
                         } else {
-                            Toast.makeText(AddStockActivity.this, "Failed: " + jsonResponse.getString("message"), Toast.LENGTH_LONG).show();
+                            String msg = "Failed to add stock";
+                            if (res.startsWith("error|")) {
+                                msg = res.substring(6);
+                            }
+                            Toast.makeText(AddStockActivity.this, "Failed: " + msg, Toast.LENGTH_LONG).show();
                             btnSave.setEnabled(true);
                         }
                     } catch (Exception e) {
@@ -156,14 +193,13 @@ public class AddStockActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("material_id", String.valueOf(selectedMaterialId));
+                params.put("material_id", selectedMaterialId);
                 params.put("quantity", quantityStr);
-                params.put("contractor_id", "1"); // Assuming contractor_id is needed
+                // params.put("contractor_id", "1"); // Not needed for simple increment if logic is in PHP
                 return params;
             }
         };
 
         Volley.newRequestQueue(this).add(stringRequest);
-        */
     }
 }

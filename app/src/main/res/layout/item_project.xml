@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
@@ -18,7 +19,7 @@
             android:id="@+id/tvProjectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Project Name"
+            tools:text="@string/project_name_label"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -26,7 +27,7 @@
             android:id="@+id/tvClientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Client Name" />
+            tools:text="@string/client_name_label" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,13 +41,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Jan 01, 2024 - Dec 31, 2024" />
+                tools:text="@string/date_range_placeholder" />
 
             <TextView
                 android:id="@+id/tvProjectStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="In Progress"
+                tools:text="@string/status_in_progress"
                 android:textStyle="bold" />
         </LinearLayout>
 

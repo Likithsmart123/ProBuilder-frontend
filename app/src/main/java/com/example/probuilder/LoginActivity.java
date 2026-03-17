@@ -2,9 +2,9 @@ package com.example.probuilder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -13,8 +13,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        androidx.cardview.widget.CardView cardContractor = findViewById(R.id.cardContractor);
-        androidx.cardview.widget.CardView cardClient = findViewById(R.id.cardClient);
+        CardView cardContractor = findViewById(R.id.cardContractor);
+        CardView cardClient = findViewById(R.id.cardClient);
 
         cardContractor.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, ContractorLoginActivity.class)));

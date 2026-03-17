@@ -1,0 +1,141 @@
+Initialized native services in: C:\Users\hp\.gradle\native
+Initialized jansi services in: C:\Users\hp\.gradle\native
+Found daemon DaemonInfo{pid=20804, address=[3f37c513-5fa3-4e4a-80e0-f29b45184d74 port:60019, addresses:[/127.0.0.1]], state=Idle, lastBusy=1773470381867, context=DefaultDaemonContext[uid=4a9cea0c-e9b4-4fde-bdd3-7aa539d6d2f8,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\hp\.gradle\daemon,pid=20804,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=IN,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Java\jdk-24 (no JDK specified, using current Java home), daemonOpts=[-Xmx2048m, -Dfile.encoding=UTF-8, -Duser.country=IN, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=4a9cea0c-e9b4-4fde-bdd3-7aa539d6d2f8,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\hp\.gradle\daemon,pid=20804,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=IN,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 10064). The daemon log file: C:\Users\hp\.gradle\daemon\9.1.0\daemon-10064.out.log
+Starting 3rd build in daemon [uptime: 4 mins 38.761 secs, performance: 99%, GC rate: 0.00/s, heap usage: 0% of 2 GiB]
+Using 12 worker leases.
+Now considering [C:\Users\hp\AndroidStudioProjects\ProBuilder] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\settings.gradle.kts'.
+Projects loaded. Root project using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Included projects: [root project 'ProBuilder', project ':app']
+
+> Configure project :
+Evaluating root project 'ProBuilder' using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Downloading https://dl.google.com/dl/android/maven2/com/android/application/com.android.application.gradle.plugin/8.9.1/com.android.application.gradle.plugin-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download10815950805448690884bin
+Resource missing. [HTTP HEAD: https://dl.google.com/dl/android/maven2/com/android/application/com.android.application.gradle.plugin/8.9.1/com.android.application.gradle.plugin-8.9.1.jar]
+Resolved plugin [id: 'com.android.application', version: '8.9.1', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.2.10', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.2.10', apply: false]
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.9.1/gradle-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download14147761549775896897bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.9.1/gradle-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download12322329806123928240bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/ddms/ddmlib/31.9.1/ddmlib-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download7532671973373541217bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/shared/31.9.1/shared-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download14368810187614800991bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/repository/31.9.1/repository-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download17508250317385733654bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/sdklib/31.9.1/sdklib-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download7832846635462249086bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/crash/31.9.1/crash-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download10037230681438114708bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/sdk-common/31.9.1/sdk-common-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download367606067560522626bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aaptcompiler/8.9.1/aaptcompiler-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download14145383678947574876bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/lint/lint-typedef-remover/31.9.1/lint-typedef-remover-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download1070910948793536466bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/lint/lint-model/31.9.1/lint-model-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download8977605588876656538bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aapt2-proto/8.9.1-12782657/aapt2-proto-8.9.1-12782657.pom to C:\Users\hp\.gradle\.tmp\gradle_download13480234901135871740bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-settings-api/8.9.1/gradle-settings-api-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download16350197467908627307bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aaptcompiler/8.9.1/aaptcompiler-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download12468395551777309876bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-gradle-proto/31.9.1/android-device-provider-gradle-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download2814309095030330061bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/databinding/baseLibrary/8.9.1/baseLibrary-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download7065792527768879609bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-test-api/8.9.1/builder-test-api-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download7876762284793886259bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-profile-proto/31.9.1/android-device-provider-profile-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download6139052205773773951bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/layoutlib/layoutlib-api/31.9.1/layoutlib-api-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download12893130787461164824bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aapt2-proto/8.9.1-12782657/aapt2-proto-8.9.1-12782657.module to C:\Users\hp\.gradle\.tmp\gradle_download4460636555956728598bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-additional-test-output-proto/31.9.1/android-test-plugin-host-additional-test-output-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download1593953057691560783bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-ddmlib-proto/31.9.1/android-device-provider-ddmlib-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download11163951589822275833bin
+Downloading https://dl.google.com/dl/android/maven2/androidx/databinding/databinding-compiler-common/8.9.1/databinding-compiler-common-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download18253828069151649823bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-settings-api/8.9.1/gradle-settings-api-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download2628991956028403649bin
+Downloading https://dl.google.com/dl/android/maven2/androidx/databinding/databinding-common/8.9.1/databinding-common-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download17380892022010473722bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-logcat-proto/31.9.1/android-test-plugin-host-logcat-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download3315938814662079989bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-coverage-proto/31.9.1/android-test-plugin-host-coverage-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download4712751483915942618bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder/8.9.1/builder-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download8106540467403690895bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-result-listener-gradle-proto/31.9.1/android-test-plugin-result-listener-gradle-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download13763362846205264042bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/bundletool/1.17.2/bundletool-1.17.2.pom to C:\Users\hp\.gradle\.tmp\gradle_download5168794692265248214bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-test-api/8.9.1/builder-test-api-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download13892226218235914550bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-model/8.9.1/builder-model-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download17285625604108283918bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-api/8.9.1/gradle-api-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download1781949804665880134bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-apk-installer-proto/31.9.1/android-test-plugin-host-apk-installer-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download13081716225091064452bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-retention-proto/31.9.1/android-test-plugin-host-retention-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download8553402835632739052bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-emulator-control-proto/31.9.1/android-test-plugin-host-emulator-control-proto-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download8869947491523933907bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-api/8.9.1/gradle-api-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download16357446106879179308bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-model/8.9.1/builder-model-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download5377489762446445075bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder/8.9.1/builder-8.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download4259814955225283590bin
+Downloading https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.1.0/kotlin-stdlib-jdk8-2.1.0.pom to C:\Users\hp\.gradle\.tmp\gradle_download16230338675847226500bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.pom to C:\Users\hp\.gradle\.tmp\gradle_download14739960565659070410bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/9.7/asm-analysis-9.7.pom to C:\Users\hp\.gradle\.tmp\gradle_download17419356321766453898bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.pom to C:\Users\hp\.gradle\.tmp\gradle_download9942366324987807508bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/9.7/asm-util-9.7.pom to C:\Users\hp\.gradle\.tmp\gradle_download12574806505617614686bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/common/31.9.1/common-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download17193066153515866055bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/dvlib/31.9.1/dvlib-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download4863511385716489629bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/annotations/31.9.1/annotations-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download6398948226529108843bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/protos/31.9.1/protos-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download4837124842434536095bin
+Downloading https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.1.0/kotlin-stdlib-jdk7-2.1.0.pom to C:\Users\hp\.gradle\.tmp\gradle_download12778025545332068075bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.pom to C:\Users\hp\.gradle\.tmp\gradle_download7041051980849650208bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/zipflinger/8.9.1/zipflinger-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download13482044699838056266bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/tracker/31.9.1/tracker-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download35058423070371171bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/apksig/8.9.1/apksig-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download11647366792004876277bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/apkzlib/8.9.1/apkzlib-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download1177896825989076946bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/manifest-merger/31.9.1/manifest-merger-31.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download12379746009259440386bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/signflinger/8.9.1/signflinger-8.9.1.pom to C:\Users\hp\.gradle\.tmp\gradle_download12372144193129839195bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/manifest-merger/31.9.1/manifest-merger-31.9.1.module to C:\Users\hp\.gradle\.tmp\gradle_download6604738481981003263bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder/8.9.1/builder-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download8524413639446094030bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/lint/lint-model/31.9.1/lint-model-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download10531809996352621721bin
+Downloading https://dl.google.com/dl/android/maven2/androidx/databinding/databinding-compiler-common/8.9.1/databinding-compiler-common-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download16868253727768798830bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/shared/31.9.1/shared-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download1764098278011853388bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/sdklib/31.9.1/sdklib-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download7851850266974032154bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/repository/31.9.1/repository-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download13713413091678482591bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-settings-api/8.9.1/gradle-settings-api-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download10727009505773279443bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.9.1/gradle-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download1319321439450651407bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/sdk-common/31.9.1/sdk-common-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download8123240505863665683bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/manifest-merger/31.9.1/manifest-merger-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download11205565949204068843bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/tracker/31.9.1/tracker-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download13505036060527444858bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aaptcompiler/8.9.1/aaptcompiler-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5929692453222896443bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-emulator-control-proto/31.9.1/android-test-plugin-host-emulator-control-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download14780417169515645806bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-retention-proto/31.9.1/android-test-plugin-host-retention-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5325043881252475176bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-model/8.9.1/builder-model-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5288033955738406819bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle-api/8.9.1/gradle-api-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download14116315418875958708bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/builder-test-api/8.9.1/builder-test-api-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5718195780031964704bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/ddms/ddmlib/31.9.1/ddmlib-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download6561777210464990773bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/layoutlib/layoutlib-api/31.9.1/layoutlib-api-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download370916370227204795bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/dvlib/31.9.1/dvlib-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download18394647555918610910bin
+Downloading https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.1.0/kotlin-stdlib-jdk8-2.1.0.jar to C:\Users\hp\.gradle\.tmp\gradle_download11376254421610991636bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/bundletool/1.17.2/bundletool-1.17.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download3831898341948147828bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/aapt2-proto/8.9.1-12782657/aapt2-proto-8.9.1-12782657.jar to C:\Users\hp\.gradle\.tmp\gradle_download1968581460407913890bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/common/31.9.1/common-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download4796927395025040374bin
+Downloading https://repo.maven.apache.org/maven2/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.1.0/kotlin-stdlib-jdk7-2.1.0.jar to C:\Users\hp\.gradle\.tmp\gradle_download18040744345243327933bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/crash/31.9.1/crash-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download12611135551627033810bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/lint/lint-typedef-remover/31.9.1/lint-typedef-remover-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download12224549928282038024bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-ddmlib-proto/31.9.1/android-device-provider-ddmlib-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download7342686086028169289bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/databinding/baseLibrary/8.9.1/baseLibrary-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5486169440351950128bin
+Downloading https://dl.google.com/dl/android/maven2/androidx/databinding/databinding-common/8.9.1/databinding-common-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download15338676900939128600bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-gradle-proto/31.9.1/android-device-provider-gradle-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download12791077542573156265bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-device-provider-profile-proto/31.9.1/android-device-provider-profile-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download8594578670482652145bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-additional-test-output-proto/31.9.1/android-test-plugin-host-additional-test-output-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download1051311286497387132bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-coverage-proto/31.9.1/android-test-plugin-host-coverage-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download3564072862998259358bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-logcat-proto/31.9.1/android-test-plugin-host-logcat-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download15542509033814557215bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/9.7/asm-util-9.7.jar to C:\Users\hp\.gradle\.tmp\gradle_download7535399362692850023bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-commons/9.7/asm-commons-9.7.jar to C:\Users\hp\.gradle\.tmp\gradle_download3076200726889835313bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-result-listener-gradle-proto/31.9.1/android-test-plugin-result-listener-gradle-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download17400100371814286811bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/utp/android-test-plugin-host-apk-installer-proto/31.9.1/android-test-plugin-host-apk-installer-proto-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download10689788222240400156bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.7/asm-9.7.jar to C:\Users\hp\.gradle\.tmp\gradle_download18283160829354274628bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/apkzlib/8.9.1/apkzlib-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download8917972767783444370bin
+Downloading https://dl.google.com/dl/android/maven2/com/google/testing/platform/core-proto/0.0.9-alpha03/core-proto-0.0.9-alpha03.jar to C:\Users\hp\.gradle\.tmp\gradle_download11442765814179980764bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/9.7/asm-analysis-9.7.jar to C:\Users\hp\.gradle\.tmp\gradle_download2982688866753720803bin
+Downloading https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/9.7/asm-tree-9.7.jar to C:\Users\hp\.gradle\.tmp\gradle_download95288960266854897bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-protobuf/1.57.2/grpc-protobuf-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download10278209229050852801bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/analytics-library/protos/31.9.1/protos-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download11555200960802842082bin
+Downloading https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-java/3.24.4/protobuf-java-3.24.4.jar to C:\Users\hp\.gradle\.tmp\gradle_download14951565972007341066bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-stub/1.57.2/grpc-stub-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download10594820517811291564bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-netty/1.57.2/grpc-netty-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download11200128956913944421bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-core/1.57.2/grpc-core-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download9129876762021572218bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-protobuf-lite/1.57.2/grpc-protobuf-lite-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download13159908035527050653bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-context/1.57.2/grpc-context-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download12754645140498593878bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/signflinger/8.9.1/signflinger-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download18199672521129933685bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/zipflinger/8.9.1/zipflinger-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download5699760896118453242bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/build/apksig/8.9.1/apksig-8.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download4753738353687427137bin
+Downloading https://dl.google.com/dl/android/maven2/com/android/tools/annotations/31.9.1/annotations-31.9.1.jar to C:\Users\hp\.gradle\.tmp\gradle_download9400325202081355892bin
+Downloading https://repo.maven.apache.org/maven2/io/grpc/grpc-api/1.57.2/grpc-api-1.57.2.jar to C:\Users\hp\.gradle\.tmp\gradle_download4019575912798534147bin
+^CTerminate batch job (Y/N)? Terminate batch job (Y/N)? 

@@ -19,7 +19,8 @@
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"/>
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#000000"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,9 +104,10 @@
                         android:layout_marginTop="16dp"/>
 
                     <TextView
+                        android:id="@+id/tvQuotationDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Comprehensive estimation for foundation works including excavation, concrete pouring, and steel reinforcement."
+                        android:text="Loading description..."
                         android:textSize="14sp"
                         android:textColor="#616161"
                         android:layout_marginTop="4dp"

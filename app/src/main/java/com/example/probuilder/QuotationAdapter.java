@@ -11,6 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import android.widget.ImageView;
+import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.Context;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuotationAdapter extends RecyclerView.Adapter<QuotationAdapter.ViewHolder> {
 
@@ -33,9 +44,14 @@ public class QuotationAdapter extends RecyclerView.Adapter<QuotationAdapter.View
         return new ViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Quotation quotation = quotationList.get(position);
+
+        // DEBUG: Visual check to see if item is inflated
+        holder.itemView.setBackgroundColor(0x30FF0000);
 
         holder.tvQuotationTitle.setText(quotation.getTitle());
         holder.tvClientName.setText(quotation.getClientName());
@@ -43,7 +59,7 @@ public class QuotationAdapter extends RecyclerView.Adapter<QuotationAdapter.View
 
         try {
             double amount = Double.parseDouble(quotation.getAmount());
-            holder.tvQuotationAmount.setText(String.format("₹%.2f", amount));
+            holder.tvQuotationAmount.setText(String.format(Locale.getDefault(), "₹%.2f", amount));
         } catch (NumberFormatException e) {
             holder.tvQuotationAmount.setText("₹--.--"); // Placeholder for invalid amount
         }
@@ -61,6 +77,57 @@ public class QuotationAdapter extends RecyclerView.Adapter<QuotationAdapter.View
         } else { // "Created" or other statuses
             holder.tvQuotationStatus.setTextColor(Color.parseColor("#F9A825")); // Yellow/Orange
         }
+        
+        holder.itemView.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(v.getContext(), QuotationDetailActivity.class);
+            intent.putExtra("quotation", quotation);
+            v.getContext().startActivity(intent);
+        });
+
+        ImageView ivDeleteQuotation = holder.itemView.findViewById(R.id.ivDeleteQuotation);
+        if (ivDeleteQuotation != null) {
+            ivDeleteQuotation.setOnClickListener(v -> {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Delete Quotation")
+                        .setMessage("Are you sure you want to delete this quotation?")
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            deleteQuotation(v.getContext(), quotation.getId(), position);
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            });
+        }
+    }
+
+    private void deleteQuotation(Context context, String id, int position) {
+        String url = Constants.BASE_URL + "delete_quotation.php";
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        if (json.optString("status").equals("success")) {
+                            Toast.makeText(context, "Quotation deleted", Toast.LENGTH_SHORT).show();
+                            if (position >= 0 && position < quotationList.size()) {
+                                quotationList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, quotationList.size());
+                            }
+                        } else {
+                            Toast.makeText(context, "Failed: " + json.optString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(context, "Error deleting quotation", Toast.LENGTH_SHORT).show()) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("quotation_id", id);
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(context).addToRequestQueue(request);
     }
 
     @Override

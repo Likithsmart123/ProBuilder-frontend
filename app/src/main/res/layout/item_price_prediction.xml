@@ -75,7 +75,7 @@
 
             <TableRow android:layout_marginTop="4dp">
                 <TextView
-                    android:text="Previous Price"
+                    android:text="Predicted Price"
                     android:layout_weight="1" />
                 <TextView
                     android:id="@+id/tvPreviousPrice"
@@ -86,7 +86,7 @@
 
             <TableRow android:layout_marginTop="4dp">
                 <TextView
-                    android:text="Change"
+                    android:text="Predicted Change"
                     android:layout_weight="1" />
                 <TextView
                     android:id="@+id/tvChange"

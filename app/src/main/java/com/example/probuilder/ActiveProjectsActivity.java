@@ -71,7 +71,8 @@ public class ActiveProjectsActivity extends AppCompatActivity {
     }
 
     private void loadProjects() {
-        String url = "http://10.0.2.2:5000/projects?contractor_id=1";
+        int contractorId = getSharedPreferences("AUTH", MODE_PRIVATE).getInt("contractor_id", -1);
+        String url = Constants.ACTIVE_PROJECTS_URL + "projects?contractor_id=" + contractorId;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -82,16 +83,28 @@ public class ActiveProjectsActivity extends AppCompatActivity {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject obj = jsonArray.getJSONObject(i);
-                            Project project = new Project(
-                                    obj.getInt("id"),
-                                    obj.getString("project_name"),
-                                    obj.getString("location"),
-                                    obj.getString("client_name"),
-                                    obj.getString("client_phone"),
-                                    obj.getString("start_date"),
-                                    obj.getString("end_date"),
-                                    obj.getString("status")
-                            );
+                            // Parse nested client object
+                            JSONObject clientObj = obj.optJSONObject("client");
+                            String clientName = "Unknown";
+                            String clientPhone = "";
+                            
+                            if (clientObj != null) {
+                                clientName = clientObj.optString("name", "Unknown");
+                                clientPhone = clientObj.optString("phone", "");
+                            }
+
+                            Project project = new Project();
+                            project.projectId = obj.getInt("id");
+                            project.title = obj.optString("title", "Unknown Project");
+                            project.status = obj.optString("status", "Pending");
+                            project.overallProgress = obj.optInt("overall_progress", 0);
+                            project.startDate = obj.optString("start_date", "");
+                            project.endDate = obj.optString("end_date", "");
+                            
+                            project.client = new Client();
+                            project.client.name = clientName;
+                            project.client.phone = clientPhone;
+                            
                             newProjects.add(project);
                         }
                         projectAdapter.setProjects(newProjects);

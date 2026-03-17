@@ -18,8 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class AllQuotationsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView tvNoQuotations;
 
-    private static final String URL_GET_QUOTATIONS = "http://10.0.2.2:5000/quotations?contractor_id=1";
+    private static final String URL_GET_QUOTATIONS = Constants.BASE_URL + "get_quotations.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,56 +64,76 @@ public class AllQuotationsActivity extends AppCompatActivity {
     }
 
     private void loadQuotations() {
+        // ✅ CORRECT API FOR CONTRACTOR
+        String url = Constants.BASE_URL + "get_contractor_quotations.php";
+
+        Log.d("QUOTATION_DEBUG", "Calling URL: " + url);
+        
         progressBar.setVisibility(View.VISIBLE);
         tvNoQuotations.setVisibility(View.GONE);
 
-        StringRequest request = new StringRequest(
+        // ✅ CORRECT ANDROID REQUEST (Using unified AuthJsonRequest)
+        AuthJsonRequest request = new AuthJsonRequest(
+                this,
                 Request.Method.GET,
-                URL_GET_QUOTATIONS,
+                url,
+                null,
                 response -> {
                     progressBar.setVisibility(View.GONE);
+                    Log.d("QUOTATION_DEBUG", "Response: " + response.toString());
+                    
                     try {
-                        JSONObject root = new JSONObject(response);
-                        JSONArray arr = root.getJSONArray("quotations");
-                        List<Quotation> newQuotations = new ArrayList<>();
-
-                        if (arr.length() == 0) {
-                            tvNoQuotations.setVisibility(View.VISIBLE);
-                        } else {
-                            tvNoQuotations.setVisibility(View.GONE);
+                        // Response structure: { "status": "success", "quotations": [...] }
+                        if (!response.optString("status").equals("success")) {
+                            Toast.makeText(this, response.optString("error", "Failed"), Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject q = arr.getJSONObject(i);
+                        org.json.JSONArray arr = response.getJSONArray("quotations");
+                        List<Quotation> newQuotations = new ArrayList<>();
 
-                            // CORRECT: Use a placeholder for status as it's not in the JSON
+                        for (int i = 0; i < arr.length(); i++) {
+                            org.json.JSONObject o = arr.getJSONObject(i);
+
+                            String id = String.valueOf(o.getInt("quotation_id")); // API returns quotation_id
+                            String title = o.getString("title");
+                            String projectName = o.optString("project_title", "Unknown Project");
+                            String clientName = o.optString("client_name", "Unknown Client");
+                            String amount = String.valueOf(o.getDouble("amount"));
+                            String status = o.getString("status");
+                            String createdAt = o.getString("created_at");
+
+                            String description = o.optString("description", "");
+                            String clientEmail = o.optString("client_email", "");
+                            String clientPhone = o.optString("client_phone", "");
+                            
+                            // Defaults/Empty for fields not in this specific API but needed by model
+                            String projectLocation = ""; 
+                            String projectStart = "";
+                            String projectEnd = "";
+
                             newQuotations.add(new Quotation(
-                                    q.getInt("id"),
-                                    q.getString("title"),
-                                    q.getString("client_name"),
-                                    q.getString("project_name"),
-                                    q.getString("amount"),
-                                    "Created", // Placeholder status
-                                    q.getString("created_at")
+                                id, title, clientName, projectName, amount, status, createdAt,
+                                description, clientEmail, clientPhone, projectLocation, projectStart, projectEnd
                             ));
                         }
 
                         adapter.setQuotations(newQuotations);
+                        tvNoQuotations.setVisibility(newQuotations.isEmpty() ? View.VISIBLE : View.GONE);
 
                     } catch (Exception e) {
-                        Log.e("QUOTATION_PARSE_ERROR", "Error parsing quotations: " + e.getMessage());
-                        Toast.makeText(this, "Parsing error. Please check server response format.", Toast.LENGTH_LONG).show();
+                        Log.e("QUOTATION_ERR", "Parse error", e);
+                        Toast.makeText(this, "Data Error", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
                     progressBar.setVisibility(View.GONE);
-                    Log.e("QUOTATION_NETWORK_ERROR", "Network error: " + error.toString());
-                    Toast.makeText(this, "Network error. Please check connection and URL.", Toast.LENGTH_LONG).show();
+                    Log.e("QUOTATION_ERROR", error.toString());
+                    Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show();
                 }
         );
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(request);
+        Volley.newRequestQueue(this).add(request);
     }
 
     @Override

@@ -21,13 +21,18 @@ public class ClientQuotationDetailActivity extends AppCompatActivity {
         String project = getIntent().getStringExtra("QUOTE_PROJECT");
         String amount = getIntent().getStringExtra("QUOTE_AMOUNT");
         String date = getIntent().getStringExtra("QUOTE_DATE");
-        int id = getIntent().getIntExtra("QUOTE_ID", 0);
+        String id = getIntent().getStringExtra("QUOTE_ID");
+        String desc = getIntent().getStringExtra("QUOTE_DESC");
 
         // Populate Views
         ((android.widget.TextView) findViewById(R.id.tvQuotationTitle)).setText(title);
         ((android.widget.TextView) findViewById(R.id.tvProjectName)).setText(project);
         ((android.widget.TextView) findViewById(R.id.tvQuotationDate)).setText("Issued: " + date);
         ((android.widget.TextView) findViewById(R.id.tvTotalAmount)).setText("₹ " + amount);
+        
+        ((android.widget.TextView) findViewById(R.id.tvQuotationDescription)).setText(
+            desc != null && !desc.isEmpty() ? desc : "No description provided."
+        );
 
         MaterialButton btnDownload = findViewById(R.id.btnDownload);
         btnDownload.setOnClickListener(v -> 

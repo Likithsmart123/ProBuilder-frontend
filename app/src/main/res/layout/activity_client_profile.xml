@@ -144,6 +144,23 @@
                 android:layout_marginBottom="12dp"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContactUs"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Contact Us"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textColor="#1E6FE3"
+                app:cornerRadius="12dp"
+                app:strokeColor="#1E6FE3"
+                app:icon="@drawable/ic_email"
+                app:iconTint="#1E6FE3"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -153,7 +170,24 @@
                 android:textColor="#D32F2F"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:strokeColor="#D32F2F"
-                app:cornerRadius="12dp"/>
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Delete Account"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#B71C1C"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="#FFFFFF"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
     </ScrollView>

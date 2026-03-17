@@ -1,5 +1,7 @@
 package com.example.probuilder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -18,8 +20,10 @@ import java.util.Locale;
 public class ScheduleTrackerAdapter extends RecyclerView.Adapter<ScheduleTrackerAdapter.ScheduleViewHolder> {
 
     private final List<ProjectSchedule> scheduleList = new ArrayList<>();
+    private final Context context;
 
-    public ScheduleTrackerAdapter() {
+    public ScheduleTrackerAdapter(Context context) {
+        this.context = context;
     }
 
     public void setSchedules(List<ProjectSchedule> schedules) {
@@ -47,8 +51,9 @@ public class ScheduleTrackerAdapter extends RecyclerView.Adapter<ScheduleTracker
         holder.tvPlannedStart.setText(schedule.getPlannedStart());
         holder.tvPlannedEnd.setText(schedule.getPlannedEnd());
         holder.tvExpectedEnd.setText(schedule.getExpectedCompletion());
-        holder.tvDaysElapsed.setText(String.valueOf(schedule.getDaysElapsed()));
+        holder.tvDaysElapsed.setText(schedule.getDaysElapsed());
         holder.tvProgressRate.setText(schedule.getProgressRate());
+        holder.tvCurrentStage.setText(schedule.getCurrentStage());
 
         // Status Styling
         if ("On Schedule".equalsIgnoreCase(schedule.getStatus())) {
@@ -75,6 +80,12 @@ public class ScheduleTrackerAdapter extends RecyclerView.Adapter<ScheduleTracker
             holder.tvStatusMessage.setTextColor(Color.parseColor("#D32F2F"));
             holder.tvStatusMessage.setBackgroundColor(Color.parseColor("#FFEBEE"));
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ScheduleDetailActivity.class);
+            intent.putExtra("PROJECT_DETAIL", schedule);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -83,7 +94,7 @@ public class ScheduleTrackerAdapter extends RecyclerView.Adapter<ScheduleTracker
     }
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
-        TextView tvProjectName, tvClientName, tvStatus, tvProgressPercent;
+        TextView tvProjectName, tvClientName, tvStatus, tvProgressPercent, tvCurrentStage;
         ProgressBar pbProgress;
         TextView tvPlannedStart, tvPlannedEnd, tvExpectedEnd;
         TextView tvDaysElapsed, tvProgressRate;
@@ -102,6 +113,7 @@ public class ScheduleTrackerAdapter extends RecyclerView.Adapter<ScheduleTracker
             tvDaysElapsed = itemView.findViewById(R.id.tvDaysElapsed);
             tvProgressRate = itemView.findViewById(R.id.tvProgressRate);
             tvStatusMessage = itemView.findViewById(R.id.tvStatusMessage);
+            tvCurrentStage = itemView.findViewById(R.id.tvCurrentStage);
         }
     }
 }

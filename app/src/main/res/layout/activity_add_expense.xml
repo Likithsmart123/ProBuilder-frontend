@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="Add New Expense"
-            app:subtitle="Record a new expense"
+            app:title="@string/title_add_expense"
+            app:subtitle="@string/subtitle_add_expense"
             app:titleTextColor="#FFFFFF"
             app:subtitleTextColor="#E0E0E0"/>
     </com.google.android.material.appbar.AppBarLayout>
@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category"
+                        android:text="@string/label_category"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="12dp"/>
@@ -77,11 +77,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_inventory" 
+                                android:contentDescription="@null"
                                 app:tint="#0277BD"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Materials"
+                                android:text="@string/cat_materials"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -100,12 +101,13 @@
                             <ImageView
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
+                                android:contentDescription="@null"
                                 android:src="@drawable/ic_person"
-                                app:tint="#FFC107"/>
+                                app:tint="#FFC107" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Labor"
+                                android:text="@string/cat_labor"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -125,11 +127,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_crane"
+                                android:contentDescription="@null"
                                 app:tint="#795548"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Equipment"
+                                android:text="@string/cat_equipment"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -149,11 +152,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_local_shipping"
+                                android:contentDescription="@null"
                                 app:tint="#F44336"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Transport"
+                                android:text="@string/cat_transport"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -173,11 +177,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_widgets"
+                                android:contentDescription="@null"
                                 app:tint="#FF9800"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Utilities"
+                                android:text="@string/cat_utilities"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -197,11 +202,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:src="@drawable/ic_money_bag"
+                                android:contentDescription="@null"
                                 app:tint="#607D8B"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Other"
+                                android:text="@string/cat_other"
                                 android:textSize="12sp"
                                 android:layout_marginTop="4dp"/>
                         </LinearLayout>
@@ -210,19 +216,36 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Title -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Expense Title (e.g. Cement)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Amount -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Amount">
+                android:hint="@string/label_amount">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:hint="Enter expense amount" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,13 +255,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Date">
+                android:hint="@string/label_date">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false" 
+                    android:focusable="true" 
+                    android:focusableInTouchMode="false"
                     android:clickable="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -249,7 +273,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Select Project">
+                android:hint="@string/label_select_project">
 
                 <AutoCompleteTextView
                     android:id="@+id/actvProject"
@@ -265,7 +289,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Description">
+                android:hint="@string/label_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDescription"
@@ -283,7 +307,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:hint="Invoice Number (Optional)">
+                android:hint="@string/hint_invoice_optional">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etInvoice"
@@ -304,7 +328,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="60dp"
-                    android:text="Cancel"
+                    android:text="@string/btn_cancel"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_marginEnd="8dp"/>
 
@@ -313,7 +337,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="60dp"
-                    android:text="Save Expense"
+                    android:text="@string/btn_save_expense"
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
 

@@ -19,8 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,10 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Locale;
+
 public class AddExpenseActivity extends AppCompatActivity {
 
     private LinearLayout btnCatMaterials, btnCatLabor, btnCatEquipment, btnCatTransport, btnCatUtilities, btnCatOther;
-    private TextInputEditText etDate, etAmount, etDescription, etInvoice;
+    private TextInputEditText etDate, etAmount, etDescription, etInvoice, etTitle;
     private AutoCompleteTextView actvProject;
     private MaterialButton btnSave, btnCancel;
 
@@ -39,7 +40,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     private Integer selectedProjectId = null;
     private Map<String, Integer> projectNameToIdMap = new HashMap<>();
 
-    private static final String ADD_EXPENSE_URL = "http://10.0.2.2:5000/add-expense";
+    private static final String ADD_EXPENSE_URL = Constants.BASE_URL + "add_expenses.php"; // Updated to plural
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +60,12 @@ public class AddExpenseActivity extends AppCompatActivity {
         btnCatUtilities = findViewById(R.id.btnCatUtilities);
         btnCatOther = findViewById(R.id.btnCatOther);
 
-        etDate = findViewById(R.id.etDate); // Corrected ID
+        etTitle = findViewById(R.id.etTitle); // NEW
+        etDate = findViewById(R.id.etDate);
         etAmount = findViewById(R.id.etAmount);
         etDescription = findViewById(R.id.etDescription);
         etInvoice = findViewById(R.id.etInvoice);
-        actvProject = findViewById(R.id.actvProject); // Corrected View Type
+        actvProject = findViewById(R.id.actvProject);
 
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
@@ -80,7 +82,17 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         actvProject.setOnItemClickListener((parent, view, position, id) -> {
             String selectedName = (String) parent.getItemAtPosition(position);
-            selectedProjectId = projectNameToIdMap.get(selectedName);
+            Integer pId = projectNameToIdMap.get(selectedName);
+            if (pId != null && pId == -1) {
+                selectedProjectId = null; // "Select Project" chosen
+            } else {
+                selectedProjectId = pId;
+            }
+        });
+
+        actvProject.setOnClickListener(v -> actvProject.showDropDown());
+        actvProject.setOnFocusChangeListener((v, hasFocus) -> {
+           if(hasFocus) actvProject.showDropDown();
         });
 
         // Buttons
@@ -127,50 +139,95 @@ public class AddExpenseActivity extends AppCompatActivity {
     private void showDatePicker() {
         Calendar c = Calendar.getInstance();
         new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-            etDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth); // Set text on correct view
+            // Ensure yyyy-MM-dd format (zero-padded)
+            String dateFormatted = String.format(Locale.getDefault(), "%d-%02d-%02d", year, month + 1, dayOfMonth);
+            etDate.setText(dateFormatted);
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private String getToken() {
+        return getSharedPreferences("contractor_session", MODE_PRIVATE).getString("api_token", "");
+    }
+
     private void loadProjects() {
-        String url = "http://10.0.2.2:5000/projects?contractor_id=1";
-        StringRequest request = new StringRequest(Request.Method.GET, url,
+        String url = Constants.BASE_URL + "get_projects_v2.php";
+        
+        Log.d("ADD_EXPENSE_DEBUG", "Using token = " + getToken());
+        Log.d("ADD_EXPENSE_DEBUG", "Calling = " + url);
+
+        com.android.volley.toolbox.JsonObjectRequest request = new com.android.volley.toolbox.JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
                 response -> {
                     try {
-                        JSONObject json = new JSONObject(response);
-                        JSONArray array = json.getJSONArray("projects");
+                         if (!"success".equalsIgnoreCase(response.optString("status"))) {
+                            Toast.makeText(this, response.optString("message", "Failed to load projects"), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        org.json.JSONArray projects = response.getJSONArray("projects");
                         List<String> projectNames = new ArrayList<>();
                         projectNameToIdMap.clear();
 
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            String name = obj.getString("project_name");
-                            int id = obj.getInt("id");
-                            projectNames.add(name);
-                            projectNameToIdMap.put(name, id);
+                        projectNames.add("Select Project");
+                        projectNameToIdMap.put("Select Project", -1);
+
+                        for (int i = 0; i < projects.length(); i++) {
+                            org.json.JSONObject obj = projects.getJSONObject(i);
+                            String title = obj.getString("title");
+                            int id = obj.getInt("project_id"); // Ensure get_projects_v2 returns project_id
+                            
+                            projectNames.add(title);
+                            projectNameToIdMap.put(title, id);
                         }
 
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, projectNames);
                         actvProject.setAdapter(adapter);
 
+                        // Preselect Logic
+                        if (getIntent().hasExtra("project_id")) {
+                            int passedId = getIntent().getIntExtra("project_id", -1);
+                            String passedName = getIntent().getStringExtra("project_name"); 
+                            
+                            if (passedName == null && passedId != -1) {
+                                for (Map.Entry<String, Integer> entry : projectNameToIdMap.entrySet()) {
+                                    if (entry.getValue() == passedId) {
+                                        passedName = entry.getKey();
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if (passedName != null && projectNameToIdMap.containsKey(passedName)) {
+                                actvProject.setText(passedName, false);
+                                selectedProjectId = projectNameToIdMap.get(passedName);
+                            }
+                        }
+
                     } catch (Exception e) {
-                        Log.e("AddExpenseActivity", "Project JSON Parsing Error: " + e.getMessage());
+                        Log.e("ADD_EXPENSE", "Parsing Error", e);
                     }
                 },
-                error -> Log.e("AddExpenseActivity", "Project Volley Error: " + error.toString()));
+                error -> {
+                    Log.e("ADD_EXPENSE", "Error", error);
+                    Toast.makeText(this, "Failed to load projects: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", getToken());
+                return headers;
+            }
+        };
 
         Volley.newRequestQueue(this).add(request);
     }
 
     private void saveExpense() {
-        String amountStr = etAmount.getText().toString();
-        if (amountStr.isEmpty()) {
-            Toast.makeText(this, "Please enter an amount", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String date = etDate.getText().toString();
-        if (date.isEmpty() || date.equals("Select Date")) {
-            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+        if (selectedCategory.isEmpty()) {
+            Toast.makeText(this, "Select category", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -179,40 +236,100 @@ public class AddExpenseActivity extends AppCompatActivity {
             return;
         }
 
-        final String description = etDescription.getText().toString().trim();
-        final String invoice = etInvoice.getText().toString().trim();
+        String selectedDate = etDate.getText().toString().trim();
+        if (selectedDate.isEmpty() || selectedDate.equals("Select Date")) {
+             Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+             return;
+        }
 
-        btnSave.setEnabled(false);
+        String title = etTitle.getText().toString().trim();
+        if(title.isEmpty()){
+            Toast.makeText(this, "Enter Title (e.g. Cement)", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        if(etAmount.getText().toString().trim().isEmpty()){
+            Toast.makeText(this, "Enter Amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        String description = etDescription.getText().toString().trim();
+        // Description is optional now since we have Title
+        // if(description.isEmpty()){ ... } 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ADD_EXPENSE_URL,
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                ADD_EXPENSE_URL,
                 response -> {
-                    if (response.trim().equalsIgnoreCase("success")) {
-                        Toast.makeText(this, "Expense Saved Successfully", Toast.LENGTH_SHORT).show();
+                    String res = response.trim();
+                    Log.d("EXPENSE_RESPONSE", res);
+
+                    if (res.equals("success")) {
+                        Toast.makeText(this, "Expense added", Toast.LENGTH_SHORT).show();
                         finish();
+                    } else if (res.equals("missing")) {
+                        Toast.makeText(this, "Fill all details (Server)", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, "Error: " + response, Toast.LENGTH_LONG).show();
-                        btnSave.setEnabled(true);
+                        String msg = res;
+                        if (res.startsWith("error|")) {
+                            msg = res.substring(6);
+                        }
+                        Toast.makeText(this, "Server error: " + msg, Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-                    Toast.makeText(this, "Network Error: " + error.toString(), Toast.LENGTH_LONG).show();
-                    btnSave.setEnabled(true);
+                    String errorMsg = "Network Error";
+                    if (error.networkResponse != null && error.networkResponse.data != null) {
+                        try {
+                            String body = new String(error.networkResponse.data, "UTF-8");
+                            Log.e("EXPENSE_ERROR_BODY", body);
+                            errorMsg = "Server Error: " + error.networkResponse.statusCode;
+                        } catch (Exception e) {
+                            Log.e("EXPENSE_ERROR_BODY", "Error reading body", e);
+                        }
+                    } else if (error instanceof com.android.volley.TimeoutError) {
+                        errorMsg = "Connection Timed Out";
+                    } else if (error instanceof com.android.volley.NoConnectionError) {
+                         errorMsg = "No Connection to Server";
+                    } else if (error instanceof com.android.volley.AuthFailureError) {
+                        errorMsg = "Auth Failed";
+                    } else if (error instanceof com.android.volley.ServerError) {
+                        errorMsg = "Server Error";
+                    } else if (error instanceof com.android.volley.NetworkError) {
+                        errorMsg = "Network Error";
+                    } else if (error instanceof com.android.volley.ParseError) {
+                        errorMsg = "Parse Error";
+                    }
+                    
+                    Log.e("EXPENSE_ERROR", error.toString());
+                    Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("contractor_id", "1"); // Placeholder
                 params.put("project_id", String.valueOf(selectedProjectId));
                 params.put("category", selectedCategory);
-                params.put("amount", amountStr);
-                params.put("expense_date", date);
+                params.put("title", title); 
                 params.put("description", description);
-                params.put("invoice_number", invoice);
+                params.put("invoice_no", etInvoice.getText().toString().trim());
+                params.put("amount", etAmount.getText().toString().trim());
+                params.put("expense_date", selectedDate);
+                
+                Log.d("EXPENSE_PARAMS", params.toString());
                 return params;
             }
         };
 
-        Volley.newRequestQueue(this).add(stringRequest);
+        // STEP 4 — FIX ANDROID VOLLEY TIMEOUT
+        request.setRetryPolicy(
+            new com.android.volley.DefaultRetryPolicy(
+                15000, 
+                com.android.volley.DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 
+                com.android.volley.DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+            )
+        );
+
+        Volley.newRequestQueue(this).add(request);
     }
 }

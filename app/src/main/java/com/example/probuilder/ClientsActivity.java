@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,26 +16,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ClientsActivity extends AppCompatActivity {
 
+    private RecyclerView rvClients;
     private ClientAdapter clientAdapter;
-    private static final String CLIENTS_URL = "http://10.0.2.2:5000/clients?contractor_id=1";
+    private static final String GET_CLIENTS_URL  = Constants.BASE_URL + "get_clients.php";
+    private static final String GET_PROJECTS_URL = Constants.BASE_URL + "get_projects.php";
+    private int contractorId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clients);
+
+        android.content.SharedPreferences prefs = getSharedPreferences("ProBuilderPrefs", MODE_PRIVATE);
+        contractorId = prefs.getInt("contractor_id", -1);
+
+        Log.d("CONTRACTOR_CHECK", "Contractor ID from SharedPrefs = " + contractorId);
+        if (contractorId == -1) {
+            Log.e("CONTRACTOR_CHECK", "contractor_id is -1 — Login never saved the value!");
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,30 +55,33 @@ public class ClientsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        RecyclerView rvClients = findViewById(R.id.rvClients);
+        rvClients = findViewById(R.id.rvClients);
         rvClients.setLayoutManager(new LinearLayoutManager(this));
 
         clientAdapter = new ClientAdapter();
+        clientAdapter.setOnItemClickListener(client -> {
+            Intent intent = new Intent(ClientsActivity.this, ClientDetailsActivity.class);
+            intent.putExtra("CLIENT_ID", client.clientId);
+            intent.putExtra("NAME", client.name);
+            intent.putExtra("EMAIL", client.email);
+            intent.putExtra("PHONE", client.phone);
+            startActivity(intent);
+        });
         rvClients.setAdapter(clientAdapter);
 
         EditText etSearch = findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 clientAdapter.filter(s.toString());
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
+            @Override public void afterTextChanged(Editable s) {}
         });
 
         FloatingActionButton fabAddClient = findViewById(R.id.fabAddClient);
-        fabAddClient.setOnClickListener(v -> startActivity(new Intent(ClientsActivity.this, InviteClientActivity.class)));
+        fabAddClient.setOnClickListener(v ->
+                startActivity(new Intent(ClientsActivity.this, AddClientActivity.class)));
 
-        // Initial load
         loadClients();
     }
 
@@ -76,60 +92,126 @@ public class ClientsActivity extends AppCompatActivity {
     }
 
     private void loadClients() {
-        Log.d("ClientsActivity", "Loading clients from: " + CLIENTS_URL);
-        // Use StringRequest to handle flexible response types (Object or Array)
-        com.android.volley.toolbox.StringRequest request = new com.android.volley.toolbox.StringRequest(
-                Request.Method.GET,
-                CLIENTS_URL,
+        String url = GET_CLIENTS_URL + "?contractor_id=" + contractorId;
+        Log.d("ClientsActivity", "Loading clients from: " + url);
+
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    progressBar.setVisibility(View.GONE);
                     Log.d("ClientsActivity", "Raw Response: " + response);
                     List<Client> clientList = new ArrayList<>();
                     try {
-                        JSONArray array;
-                        // Determine if response is Object (wrapped) or Array
-                        if (response.trim().startsWith("{")) {
-                            JSONObject root = new JSONObject(response);
-                            if (root.has("clients")) {
-                                array = root.getJSONArray("clients");
-                            } else {
-                                // Handle case where it might be a single object or different key
-                                Log.e("ClientsActivity", "JSON Object found but no 'clients' key");
-                                array = new JSONArray(); 
-                            }
-                        } else {
-                            // Assume it's a direct array
-                            array = new JSONArray(response);
+                        org.json.JSONObject root = new org.json.JSONObject(response);
+
+                        if (!root.optString("status").equals("success")) {
+                            Toast.makeText(this, "Failed to load clients: " + root.optString("message"), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        org.json.JSONArray array = root.optJSONArray("clients");
+                        if (array == null) {
+                            clientAdapter.setClients(new ArrayList<>());
+                            return;
                         }
 
                         for (int i = 0; i < array.length(); i++) {
-                            JSONObject obj = array.getJSONObject(i);
-                            // Robust key fetching: check standard keys and "client_" prefixed keys
-                            int id = obj.optInt("id", obj.optInt("client_id", -1));
-                            String name = obj.optString("name", obj.optString("client_name", "Unknown"));
-                            String email = obj.optString("email", obj.optString("client_email", ""));
-                            String phone = obj.optString("phone", obj.optString("client_phone", ""));
-                            int isUsed = obj.optInt("is_used", 0);
-                            
-                            clientList.add(new Client(id, name, email, phone, isUsed));
+                            org.json.JSONObject obj = array.getJSONObject(i);
+                            Client client = new Client();
+                            client.clientId = obj.optInt("client_id", -1);
+                            client.name     = obj.optString("name", "Unknown");
+                            client.email    = obj.optString("email", "");
+                            client.phone    = obj.optString("phone", "");
+                            clientList.add(client);
                         }
-                        clientAdapter.setClients(clientList);
-                    } catch (JSONException e) {
+
+                        // ── Frontend-only filter: show only clients with at least one project ──
+                        filterClientsByProjects(clientList);
+
+                    } catch (Exception e) {
                         e.printStackTrace();
-                        Log.e("ClientsActivity", "JSON Parsing error: " + e.getMessage(), e);
-                        Toast.makeText(this, "Data parsing error. Check logs.", Toast.LENGTH_SHORT).show();
+                        Log.e("ClientsActivity", "Parsing error: " + e.getMessage());
+                        Toast.makeText(this, "Error parsing client data.", Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
-                    Log.e("ClientsActivity", "Error loading clients", error);
-                    String errorMsg = error.getMessage() != null ? error.getMessage() : error.toString();
+                    progressBar.setVisibility(View.GONE);
+                    String errorMsg = error.getMessage() != null ? error.getMessage() : "Unknown Network Error";
+                    Log.e("ClientsActivity", "Volley Error: " + errorMsg);
                     if (error.networkResponse != null) {
-                        errorMsg += " Status: " + error.networkResponse.statusCode;
+                        Log.e("ClientsActivity", "Status Code: " + error.networkResponse.statusCode);
                     }
-                    Toast.makeText(this, "Load failed: " + errorMsg, Toast.LENGTH_LONG).show();
-                }
-        );
+                    Toast.makeText(this, "Failed to load clients: " + errorMsg, Toast.LENGTH_LONG).show();
+                });
 
         Volley.newRequestQueue(this).add(request);
+    }
+
+    /**
+     * Calls get_projects.php (with the stored api_token as Authorization header),
+     * collects the set of client IDs that appear in at least one project,
+     * then filters the full client list to only those — purely frontend, no backend change.
+     * Falls back to showing all clients if the projects call fails.
+     */
+    private void filterClientsByProjects(final List<Client> allClients) {
+        final String apiToken = getSharedPreferences("contractor_session", MODE_PRIVATE)
+                .getString("api_token", "");
+
+        StringRequest projectsRequest = new StringRequest(Request.Method.GET, GET_PROJECTS_URL,
+                response -> {
+                    Set<Integer> clientIdsWithProjects = new HashSet<>();
+                    try {
+                        org.json.JSONObject root = new org.json.JSONObject(response);
+                        org.json.JSONArray projects = root.optJSONArray("projects");
+                        if (projects != null) {
+                            for (int i = 0; i < projects.length(); i++) {
+                                org.json.JSONObject project = projects.getJSONObject(i);
+                                org.json.JSONObject clientObj = project.optJSONObject("client");
+                                if (clientObj != null) {
+                                    int cId = clientObj.optInt("id", -1);
+                                    if (cId > 0) {
+                                        clientIdsWithProjects.add(cId);
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("ClientsActivity", "Project filter parse error: " + e.getMessage());
+                        // Fallback: show all clients if parsing fails
+                        clientAdapter.setClients(allClients);
+                        return;
+                    }
+
+                    // Keep only clients whose ID appears in at least one project
+                    List<Client> filtered = new ArrayList<>();
+                    for (Client c : allClients) {
+                        if (clientIdsWithProjects.contains(c.clientId)) {
+                            filtered.add(c);
+                        }
+                    }
+
+                    Log.d("ClientsActivity",
+                            "Total clients: " + allClients.size()
+                            + " | Clients with projects: " + filtered.size());
+
+                    clientAdapter.setClients(filtered);
+                },
+                error -> {
+                    // Fallback: if projects API fails, show all clients
+                    Log.e("ClientsActivity", "Projects fetch failed (filter fallback): " + error.toString());
+                    clientAdapter.setClients(allClients);
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", apiToken);
+                return headers;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(projectsRequest);
     }
 
     @Override

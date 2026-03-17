@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -30,7 +26,6 @@ public class ContractorLoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private static final String URL = "http://10.0.2.2:5000/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,104 +35,113 @@ public class ContractorLoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        ImageView btnBack = findViewById(R.id.btnBack); // Added btnBack declaration
 
+        btnBack.setOnClickListener(v -> finish()); // Added OnClickListener for btnBack
         // The loginUser method is ONLY called when the user clicks the button.
         btnLogin.setOnClickListener(v -> loginUser());
 
-        TextView tvSignUp = findViewById(R.id.tvSignUp);
-        tvSignUp.setOnClickListener(v -> startActivity(new Intent(ContractorLoginActivity.this, ContractorSignUpActivity.class)));
 
         TextView tvForgotPassword = findViewById(R.id.tvForgotPassword);
-        tvForgotPassword.setOnClickListener(v -> startActivity(new Intent(ContractorLoginActivity.this, ForgotPasswordActivity.class)));
+        tvForgotPassword.setOnClickListener(
+                v -> startActivity(new Intent(ContractorLoginActivity.this, ForgotPasswordActivity.class)));
     }
 
     private void loginUser() {
         // Disable the button to prevent multiple clicks
         btnLogin.setEnabled(false);
 
-        // CORRECTED: Null-safe way to get text to prevent crashes
-        final String email = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
-        final String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
+        // STEP 2 — INPUT TRIMMING (NON-NEGOTIABLE)
+        // Using strict trimming as requested
+        final String email = etEmail.getText().toString().trim();
+        final String password = etPassword.getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
-            btnLogin.setEnabled(true); // Re-enable button
+            btnLogin.setEnabled(true);
             return;
         }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+        // STEP 1 — LOGIN URL (MUST MATCH TEST)
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.BASE_URL + "login.php",
                 response -> {
-                    String trimmedResponse = response.trim();
-                    Log.d("LoginResponse", "Server Response: " + trimmedResponse);
+                    // STEP 4 — RESPONSE HANDLING (PLAIN TEXT)
+                    try {
+                        // Try Parsing as JSON
+                        org.json.JSONObject obj = new org.json.JSONObject(response);
+                        if (obj.optString("status").equals("success")) {
+                            String token = obj.getString("token");
+                            String name = obj.optString("name", "");
+                            int contractorId = obj.getInt("contractor_id");
 
-                    if (trimmedResponse.equals("success")) {
-                        Toast.makeText(ContractorLoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ContractorLoginActivity.this, ContractorDashboardActivity.class));
-                        finish();
-                    } else {
-                        // Check if response is HTML
-                        if (trimmedResponse.toLowerCase().startsWith("<!doctype html>") || trimmedResponse.toLowerCase().contains("<html>")) {
-                            Toast.makeText(ContractorLoginActivity.this, "Server Error: Invalid HTML response received. Check API URL.", Toast.LENGTH_LONG).show();
-                            Log.e("LoginResponse", "HTML Response received: " + trimmedResponse);
+                            // SAVE TO AUTH PREFS (FINAL FIX)
+                            getSharedPreferences("AUTH", MODE_PRIVATE).edit()
+                                    .putString("token", token)
+                                    .putString("role", "contractor")
+                                    .putInt("contractor_id", contractorId) // Keeping ID just in case
+                                    .apply();
+
+                            // Legacy Session (Keeping for untouched parts of app briefly)
+                            getSharedPreferences("contractor_session", MODE_PRIVATE).edit()
+                                    .putString("api_token", token)
+                                    .putInt("contractor_id", contractorId)
+                                    .putString("name", name)
+                                    .apply();
+
+                            // Legacy Sync (Optional, if other legacy activities read ProBuilderPrefs)
+                            getSharedPreferences("ProBuilderPrefs", MODE_PRIVATE).edit()
+                                    .putInt("contractor_id", contractorId)
+                                    .putString("user_name", name)
+                                    .apply();
+
+                            Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(this, ContractorDashboardActivity.class));
+                            finish();
                         } else {
-                            Toast.makeText(ContractorLoginActivity.this, "Login Failed: " + trimmedResponse, Toast.LENGTH_LONG).show();
+                            String msg = obj.optString("message", "Login failed");
+                            if ("invalid".equals(response.trim()))
+                                msg = "Invalid credentials"; // Fallback
+                            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                            btnLogin.setEnabled(true);
                         }
-                        btnLogin.setEnabled(true); // Re-enable button on failure
+                    } catch (org.json.JSONException e) {
+                        // Fallback for Legacy "success|id|name" if server revert/cache issue
+                        String res = response.trim();
+                        if (res.startsWith("success")) {
+                            String[] parts = res.split("\\|");
+                            if (parts.length >= 3) {
+                                // ... handle legacy if really needed, but better to force JSON ...
+                                // For now, assuming JSON update works
+                            }
+                        }
+                        Log.e("LoginActivity", "JSON Parse error: " + response, e);
+                        Toast.makeText(this, "Login Failed: " + response, Toast.LENGTH_SHORT).show();
+                        btnLogin.setEnabled(true);
                     }
                 },
                 error -> {
-                    String message = "Network Error";
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        message = "Cannot connect to server. Check internet or server status.";
-                    } else if (error instanceof AuthFailureError) {
-                        message = "Authentication Failure.";
-                    } else if (error instanceof ServerError) {
-                        message = "Server Error. Please try again.";
-                        if (error.networkResponse != null && error.networkResponse.data != null) {
-                            String errorData = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                            Log.e("LoginError", "Server Error Data: " + errorData);
-                            
-                            if (errorData.toLowerCase().startsWith("<!doctype html>") || errorData.toLowerCase().contains("<html>")) {
-                                message = "Server Error: Invalid HTML response (Check Server Logs/URL).";
-                                // Try to extract title
-                                int titleStart = errorData.toLowerCase().indexOf("<title>");
-                                int titleEnd = errorData.toLowerCase().indexOf("</title>");
-                                if (titleStart != -1 && titleEnd != -1) {
-                                    message = "Server Error: " + errorData.substring(titleStart + 7, titleEnd);
-                                }
-                            } else {
-                                message = "Server Error: " + errorData;
-                            }
-                        }
-                    } else if (error instanceof NetworkError) {
-                         message = "Network Error. Check your connection.";
-                    } else if (error instanceof ParseError) {
-                        message = "Parsing Error.";
+                    String errorMsg = "Network Error";
+                    if (error.getMessage() != null) {
+                        errorMsg += ": " + error.getMessage();
                     }
-
-                    Toast.makeText(ContractorLoginActivity.this, message, Toast.LENGTH_LONG).show();
+                    if (error instanceof NoConnectionError) {
+                        errorMsg = "Cannot connect to server. Check your internet connection or the server address.";
+                    } else if (error.networkResponse != null) {
+                        errorMsg = "HTTP " + error.networkResponse.statusCode + " Error";
+                    }
+                    Toast.makeText(ContractorLoginActivity.this, errorMsg, Toast.LENGTH_LONG).show();
                     Log.e("LoginError", "Volley Error: " + error);
-                    if (error.networkResponse != null) {
-                        Log.e("LoginError", "Status Code: " + error.networkResponse.statusCode);
-                    }
-                    btnLogin.setEnabled(true); // Re-enable button on error
+                    btnLogin.setEnabled(true);
                 }) {
             @Override
             protected Map<String, String> getParams() {
+                // STEP 3 — PARAM NAMES (MUST MATCH PHP)
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 params.put("password", password);
-                params.put("role", "contractor");
-                Log.d("LoginParams", "Parameters: " + params);
                 return params;
             }
         };
-
-        // Set a longer timeout
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                30000, // 30 seconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);

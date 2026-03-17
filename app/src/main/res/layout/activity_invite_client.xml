@@ -32,60 +32,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="The client will receive login credentials to access their project updates."
-            android:textAlignment="center" />
+            android:text="Select a project to generate an invite link for the client."
+            android:textAlignment="center"
+            android:textSize="16sp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Client Full Name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etClientName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Client Email Address">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etClientEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:hint="Client Phone Number">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etClientPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="Select Project"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
 
         <Button
-            android:id="@+id/btnCreateClient"
+            android:id="@+id/btnSelectProject"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="32dp"
+            android:text="Select Project"
+            android:textColor="#555555"
+            android:backgroundTint="#F5F5F5"
+            android:gravity="start|center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <Button
+            android:id="@+id/btnGenerateLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/gradient_button_background"
-            android:text="Create Client"
-            android:textColor="@android:color/white" />
+            android:text="Generate Invite Link"
+            android:textColor="@android:color/white"
+            android:padding="16dp"/>
 
     </LinearLayout>
 

@@ -11,8 +11,9 @@ public class Expense implements Serializable {
     private String projectName;
     private String description;
     private String invoiceNumber;
+    private String location;
 
-    public Expense(String id, String category, double amount, String date, String projectId, String projectName, String description, String invoiceNumber) {
+    public Expense(String id, String category, double amount, String date, String projectId, String projectName, String description, String invoiceNumber, String location) {
         this.id = id;
         this.category = category;
         this.amount = amount;
@@ -21,6 +22,7 @@ public class Expense implements Serializable {
         this.projectName = projectName;
         this.description = description;
         this.invoiceNumber = invoiceNumber;
+        this.location = location;
     }
 
     public String getId() { return id; }
@@ -31,4 +33,5 @@ public class Expense implements Serializable {
     public String getProjectName() { return projectName; }
     public String getDescription() { return description; }
     public String getInvoiceNumber() { return invoiceNumber; }
+    public String getLocation() { return location; }
 }

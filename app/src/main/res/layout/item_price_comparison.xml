@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Material Name -->
+    <TextView
+        android:id="@+id/txtMaterial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:text="Material"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <!-- Predicted % Change -->
+    <TextView
+        android:id="@+id/txtChange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="0.0%"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray" />
+
+    <!-- Trend Arrow -->
+    <TextView
+        android:id="@+id/txtTrend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:gravity="center"
+        android:text="-"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Confidence Score -->
+    <TextView
+        android:id="@+id/txtConfidence"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="85%"
+        android:textSize="14sp"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

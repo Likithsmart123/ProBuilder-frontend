@@ -14,22 +14,14 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Logo Icon -->
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_square_bg_light_blue"
-        android:padding="16dp"
-        android:src="@drawable/ic_probuilder_logo"
-        app:tint="#FFFFFF" />
+    <!-- Logo Icon Removed as per design -->
 
     <!-- Title -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Pro Builder"
+        android:text="@string/app_name_display"
         android:textColor="@android:color/white"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -40,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:gravity="center"
-        android:text="Contractor Project &amp; Quotation Management System"
+        android:text="@string/app_tagline"
         android:textColor="#E0E0E0"
         android:textSize="14sp" />
 
@@ -69,6 +61,7 @@
                 android:padding="10dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_person"
+                android:contentDescription="@string/desc_icon_contractor"
                 app:tint="#FFFFFF" />
 
             <LinearLayout
@@ -80,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login as Contractor"
+                    android:text="@string/login_contractor"
                     android:textColor="#212121"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -89,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Manage projects, clients &amp; workers"
+                    android:text="@string/desc_contractor"
                     android:textColor="#757575"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -126,6 +119,7 @@
                 android:padding="10dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_home"
+                android:contentDescription="@string/desc_icon_client"
                 app:tint="#FFFFFF" />
 
             <LinearLayout
@@ -137,7 +131,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Login as Client"
+                    android:text="@string/login_client"
                     android:textColor="#212121"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -146,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Track your project progress"
+                    android:text="@string/desc_client"
                     android:textColor="#757575"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -165,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="By continuing, you agree to our Terms &amp;\nPrivacy Policy"
+        android:text="@string/terms_privacy"
         android:textColor="#B3FFFFFF"
         android:textSize="12sp" />
 

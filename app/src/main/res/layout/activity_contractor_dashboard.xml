@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dashboard"
+                android:text="@string/dashboard_title"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -34,17 +34,59 @@
                 android:id="@+id/tvWelcomeMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome back, John!"
+                android:text="@string/welcome_back_default"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
 
 
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp">
+
+            <ImageView
+                android:id="@+id/ivChat"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_margin="4dp"
+                android:contentDescription="Chat"
+                android:src="@drawable/ic_chat"
+                app:tint="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tvUnreadBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="18dp"
+                android:minHeight="18dp"
+                android:layout_gravity="top|end"
+                android:background="@drawable/badge_bg"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="0"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:elevation="4dp"
+                android:visibility="gone" />
+        </FrameLayout>
+
         <ImageView
             android:id="@+id/ivProfile"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_person" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/circle_white_bg"
+            android:padding="6dp"
+            android:contentDescription="@string/desc_profile_image"
+            android:src="@drawable/ic_person"
+            app:tint="#1E6FE3" />
     </LinearLayout>
 
     <!-- Content -->
@@ -83,12 +125,13 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/ic_clients"
+                            android:contentDescription="@string/desc_icon_clients"
                             app:tint="#1E6FE3" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Total Clients"
+                            android:text="@string/total_clients"
                             android:textSize="14sp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -110,13 +153,14 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_work_final"
+                            android:src="@drawable/ic_active_projects"
+                            android:contentDescription="@string/desc_icon_work"
                             app:tint="#1E6FE3" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Active Projects"
+                            android:text="@string/active_projects"
                             android:textSize="14sp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -139,12 +183,13 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/ic_quotations"
+                            android:contentDescription="@string/desc_icon_quotations"
                             app:tint="#1E6FE3" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="All Quotations"
+                            android:text="@string/all_quotations"
                             android:textSize="14sp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -175,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Total Expenses"
+                            android:text="@string/total_expenses"
                             android:textSize="14sp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -196,90 +241,34 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Low Stock Alerts"
+                    android:text="@string/low_stock_alerts"
                     android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvViewAllStock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View All"
+                    android:text="@string/view_all"
                     android:textColor="#1E6FE3"/>
             </LinearLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDashboardStockAlerts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFEBEE"
-                app:cardCornerRadius="12dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-                    <TextView
-                        android:id="@+id/cement_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cement Bags"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:id="@+id/cement_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/cement_title"
-                        android:text="Current: 15 | Min: 50"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/status_critical_background"
-                        android:textColor="@android:color/white"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
-                        android:text="Critical"/>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:nestedScrollingEnabled="false"
+                android:layout_marginTop="8dp"/>
 
-            <com.google.android.material.card.MaterialCardView
+            <TextView
+                android:id="@+id/tvNoDashboardAlerts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFF9C4"
-                app:cardCornerRadius="12dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-                    <TextView
-                        android:id="@+id/steel_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Steel Rods"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/steel_title"
-                        android:text="Current: 35 | Min: 40"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/status_low_background"
-                        android:textColor="@android:color/black"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
-                        android:text="Low"/>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:text="@string/no_low_stock_alerts"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textColor="#757575"
+                android:visibility="gone"/>
 
             <!-- Quick Actions -->
             <TextView
@@ -288,7 +277,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="Quick Actions"
+                android:text="@string/quick_actions"
                 android:textStyle="bold"/>
 
             <GridLayout
@@ -297,7 +286,7 @@
                 android:columnCount="3">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardSupplierTracker"
+                    android:id="@+id/cardAddClient"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
@@ -315,7 +304,8 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_suppliers"
+                            android:src="@drawable/ic_add_client"
+                            android:contentDescription="@string/desc_icon_add_client"
                             app:tint="#1E6FE3" />
 
                         <TextView
@@ -324,7 +314,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Supplier Tracker"
+                            android:text="@string/add_client_multiline"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -349,6 +339,7 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/ic_create_new_folder"
+                            android:contentDescription="@string/desc_icon_create_folder"
                             app:tint="#1E6FE3" />
 
                         <TextView
@@ -357,7 +348,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Create\nProject"
+                            android:text="@string/create_project_multiline"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -381,7 +372,8 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_widgets"
+                            android:src="@drawable/ic_warehouse"
+                            android:contentDescription="@string/desc_icon_widgets"
                             app:tint="#1E6FE3" />
 
                         <TextView
@@ -390,7 +382,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Material Management"
+                            android:text="@string/material_management"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -415,6 +407,7 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/ic_post_add"
+                            android:contentDescription="@string/desc_icon_post_add"
                             app:tint="#1E6FE3" />
 
                         <TextView
@@ -423,7 +416,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Create\nQuotation"
+                            android:text="@string/create_quotation_multiline"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -447,7 +440,8 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_trending_up"
+                            android:src="@drawable/ic_calculate"
+                            android:contentDescription="@string/desc_icon_trending_up"
                             app:tint="#1E6FE3" />
 
                         <TextView
@@ -456,7 +450,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Price Hike Prediction"
+                            android:text="@string/price_hike_prediction"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -477,11 +471,14 @@
                         android:orientation="vertical"
                         android:padding="12dp">
 
-                        <ImageView
+                        <TextView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            android:src="@drawable/ic_money_bag"
-                            app:tint="#1E6FE3" />
+                            android:gravity="center"
+                            android:text="₹"
+                            android:textColor="#1E6FE3"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -489,7 +486,7 @@
                             android:layout_marginTop="8dp"
                             android:gravity="center_horizontal"
                             android:lines="2"
-                            android:text="Payment\nManagement"
+                            android:text="@string/payment_management_multiline"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

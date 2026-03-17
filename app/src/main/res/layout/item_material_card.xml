@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@android:color/white"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/imgMaterialIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/img_cement"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_circle_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/txtMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="CEMENT"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            app:layout_constraintStart_toEndOf="@id/imgMaterialIcon"
+            app:layout_constraintTop_toTopOf="@id/imgMaterialIcon"
+            app:layout_constraintEnd_toStartOf="@id/txtConfidence" />
+
+        <!-- Subtitle (Current Price) -->
+        <TextView
+            android:id="@+id/txtCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹ 450.0"
+            android:textSize="14sp"
+            android:textColor="#757575"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="@id/txtMaterial"
+            app:layout_constraintTop_toBottomOf="@id/txtMaterial" />
+
+        <!-- Confidence Pill -->
+        <TextView
+            android:id="@+id/txtConfidence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="95.0%"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/imgMaterialIcon" />
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#EEEEEE"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgMaterialIcon" />
+
+        <!-- Lower Section Container -->
+        
+        <!-- Label: Predicted -->
+        <TextView
+            android:id="@+id/lblPredicted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FORECAST:"
+            android:textSize="11sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <!-- Value: Predicted -->
+        <TextView
+            android:id="@+id/txtPredictedVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹ 458.39"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblPredicted"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Trend Icon -->
+        <ImageView
+            android:id="@+id/trendIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_trending_up"
+            app:tint="#757575"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

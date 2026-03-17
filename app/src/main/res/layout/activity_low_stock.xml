@@ -34,6 +34,16 @@
             android:paddingVertical="8dp"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/tvNoAlerts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No low stock alerts"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#757575"
+            android:visibility="gone" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

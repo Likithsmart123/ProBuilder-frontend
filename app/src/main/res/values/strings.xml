@@ -1,4 +1,200 @@
 <resources>
     <string name="app_name">ProBuilder</string>
     <string name="login">Login</string>
+    <string name="create_quotation_title">Create Quotation</string>
+    <string name="hint_select_client">Select Client</string>
+    <string name="hint_select_project">Select Project</string>
+    <string name="hint_quotation_title">e.g. Initial Construction Estimate</string>
+    <string name="hint_total_amount">0.00</string>
+    <string name="hint_description">Enter quotation details...</string>
+    <string name="btn_create_quotation">Create Quotation</string>
+    <string name="label_select_client">Select Client</string>
+    <string name="label_select_project">Select Project</string>
+    <string name="label_quotation_title">Quotation Title</string>
+    <string name="label_total_amount">Total Amount (₹)</string>
+    <string name="label_description">Description (Optional)</string>
+    <string name="desc_back">Navigate Back</string>
+    <string name="select_material_prompt">Select Material</string>
+    <string name="unknown_project">Unknown Project</string>
+    <string name="unknown_status">N/A</string>
+    <string name="client_name_na">Client Name N/A</string>
+    <string name="client_phone_na">Phone N/A</string>
+    <string name="client_email_na">Email N/A</string>
+    <string name="location_not_set">Location not set</string>
+    <string name="start_date_format">Start Date: %s</string>
+    <string name="tbd">TBD</string>
+    <string name="estimated_cost_format">Estimated Cost: ₹%.1f</string>
+    <string name="total_paid_format">Total Paid: ₹%.1f</string>
+    <string name="pending_amount_format">Pending Amount: ₹%.1f</string>
+    <string name="pending_alert_format">Pending amount: ₹%.1f. Collect final payment.</string>
+    <string name="percent_complete">%d%% Complete</string>
+    <string name="percent_sign">%d%%</string>
+    <string name="network_error">Network error</string>
+    <string name="parsing_error">Parsing error</string>
+    <string name="invalid_project_id">Invalid Project ID</string>
+    <string name="title_add_expense">Add New Expense</string>
+    <string name="subtitle_add_expense">Record a new expense</string>
+    <string name="label_category">Category</string>
+    <string name="cat_materials">Materials</string>
+    <string name="cat_labor">Labor</string>
+    <string name="cat_equipment">Equipment</string>
+    <string name="cat_transport">Transport</string>
+    <string name="cat_utilities">Utilities</string>
+    <string name="cat_other">Other</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_date">Date</string>
+    <string name="hint_invoice_optional">Invoice Number (Optional)</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save_expense">Save Expense</string>
+    <string name="label_client">Client:</string>
+    <string name="label_project">Project:</string>
+    <string name="label_amount_simple">Amount:</string>
+    <string name="label_date_simple">Date:</string>
+    <string name="label_desc_items">Description / Items:</string>
+    <string name="label_planned_start">Planned Start</string>
+    <string name="label_planned_end">Planned End</string>
+    <string name="label_expected_completion">Expected Completion</string>
+    <string name="label_progress_analysis">Progress Analysis</string>
+    <string name="label_days_elapsed">Days Elapsed:</string>
+    <string name="label_progress_task">Progress Task:</string>
+    
+    <!-- Dashboard & Common -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_probuilder">Pro Builder Dashboard</string>
+    <string name="welcome_back_user">Welcome back, %s!</string>
+    <string name="welcome_back_default">Welcome back!</string>
+    <string name="welcome_client">Welcome, Client</string>
+    <string name="welcome_contractor">Welcome, Contractor!</string>
+    <string name="total_clients">Total Clients</string>
+    <string name="active_projects">Active Projects</string>
+    <string name="all_quotations">All Quotations</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="low_stock_alerts">Low Stock Alerts</string>
+    <string name="view_all">View All</string>
+    <string name="no_low_stock_alerts">No low stock alerts</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="add_client_multiline">Add\nClient</string>
+    <string name="create_project_multiline">Create\nProject</string>
+    <string name="material_management">Material\nInventory</string>
+    <string name="payment_management_multiline">Payment\nManagement</string>
+    <string name="price_hike_prediction">Material\nCalculator</string>
+    <string name="create_quotation_multiline">Create\nQuotation</string>
+    <string name="overview">Overview</string>
+    <string name="menu">Menu</string>
+    <string name="my_projects">My Projects</string>
+    <string name="my_quotations">My Quotations</string>
+    <string name="cost_breakdown">Cost Breakdown</string>
+    <string name="project_info">Project Info</string>
+    <string name="client_info">Client Information</string>
+    <string name="budget_exceeded">Budget exceeded!</string>
+    <string name="stage_progress">Stage Progress</string>
+    <string name="photos_empty">No photos uploaded yet</string>
+    <string name="expenses_coming_soon">Expenses List (Coming Soon)</string>
+    <string name="materials_coming_soon">Materials List (Coming Soon)</string>
+    <string name="project_name_label">Project Name</string>
+    <string name="client_name_label">Client Name</string>
+    <string name="date_range_placeholder">Jan 01, 2024 - Dec 31, 2024</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="btn_work_log">Work Log</string>
+    <string name="btn_materials">Materials</string>
+    <string name="btn_expense">Expense</string>
+    <string name="projects">Projects</string>
+    <string name="clients">Clients</string>
+
+    <!-- Generic Content Descriptions -->
+    <string name="desc_app_logo">App Logo</string>
+    <string name="desc_profile_image">Profile Image</string>
+    <string name="desc_icon_clients">Clients Icon</string>
+    <string name="desc_icon_work">Work Icon</string>
+    <string name="desc_icon_quotations">Quotations Icon</string>
+    <string name="desc_icon_add_client">Add Client Icon</string>
+    <string name="desc_icon_create_folder">Create Folder Icon</string>
+    <string name="desc_icon_widgets">Widgets Icon</string>
+    <string name="desc_icon_post_add">Post Add Icon</string>
+    <string name="desc_icon_trending_up">Trending Up Icon</string>
+    <string name="desc_icon_money">Money Icon</string>
+    <string name="desc_icon_logout">Logout Icon</string>
+    <string name="desc_icon_projects">Projects Icon</string>
+    <string name="desc_icon_back">Back Icon</string>
+    <string name="desc_icon_phone">Phone Icon</string>
+    <string name="desc_icon_email">Email Icon</string>
+    <!-- Create Project Strings -->
+    <string name="title_create_project">Create Project</string>
+    <string name="hint_project_name">Project Name</string>
+    <string name="hint_project_location">Project Location</string>
+    <string name="hint_start_date">Start Date</string>
+    <string name="hint_end_date">End Date</string>
+    <string name="btn_add_project">Add Project</string>
+
+    <!-- Work Log Strings -->
+    <string name="title_add_work_log">Add Work Log</string>
+    <string name="text_select_date">Select Date</string>
+    <string name="label_work_summary">Work Summary</string>
+    <string name="hint_work_summary">Describe work done today...</string>
+    <string name="label_worker_count">Worker Count</string>
+    <string name="hint_worker_count">e.g. 12</string>
+    <string name="label_materials_used">Materials Used</string>
+    <string name="hint_material_quantity">Quantity (e.g. 50)</string>
+    <string name="btn_add">Add</string>
+    <string name="label_update_stage_progress">Update Stage Progress (optional)</string>
+    <string name="text_progress_placeholder">Progress: --</string>
+    <string name="label_photos_videos">Photos &amp; Videos</string>
+    <string name="btn_add_photo">Add Photo</string>
+    <string name="btn_add_video">Add Video</string>
+    <string name="btn_save_work_log">Save Work Log</string>
+
+    <!-- Item Schedule Strings -->
+    <string name="label_current_stage_format">Current Stage: %s</string>
+    <!-- Schedule Detail Strings -->
+    <string name="title_project_details">Project Details</string>
+    <string name="format_for_client">For %s</string>
+    <string name="status_on_schedule">On Schedule</string>
+    <string name="msg_project_behind">Project is slightly behind schedule.</string>
+    <string name="label_timeline">Timeline</string>
+
+    <!-- Role Selection Strings -->
+    <string name="app_name_display">Pro Builder</string>
+    <string name="app_tagline">Contractor Project &amp; Quotation Management System</string>
+    <string name="login_contractor">Login as Contractor</string>
+    <string name="desc_contractor">Manage projects, clients &amp; workers</string>
+    <string name="login_client">Login as Client</string>
+    <string name="desc_client">Track your project progress</string>
+    <string name="terms_privacy">By continuing, you agree to our Terms &amp;\nPrivacy Policy</string>
+    <string name="desc_icon_contractor">Contractor Icon</string>
+    <string name="desc_icon_client">Client Icon</string>
+
+    <!-- Contractor Login Strings -->
+    <string name="title_contractor_login">Contractor Login</string>
+    <string name="title_reset_password">Reset Password</string>
+    <string name="msg_create_strong_pass">Create a new strong password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="btn_update_password">Update Password</string>
+    <string name="msg_password_updated">Password Updated! Please Login.</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="text_forgot_password">Forgot Password?</string>
+    <string name="text_new_user">New to ProBuilder? </string>
+    <string name="btn_sign_up">Sign Up</string>
+    <!-- Clients & Projects Strings -->
+    <string name="title_clients">Clients</string>
+    <string name="hint_search_clients">Search clients...</string>
+    <string name="desc_add_client">Add Client</string>
+    <string name="title_projects">Projects</string>
+    <string name="hint_search_projects">Search projects...</string>
+    <string name="desc_add_project">Add Project</string>
+
+    <!-- Sign Up Strings -->
+    <string name="title_create_account">Create Your Account</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="hint_phone">Phone Number</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="text_already_have_account">Already have an account? </string>
+    <string name="text_login_link">Already have an account? Login</string>
+
+    
+    <!-- Item Strings -->
+    <string name="status_active">Active</string>
+    <string name="label_material_supply">Material Supply</string>
+    <string name="desc_icon_rating">Rating Icon</string>
 </resources>

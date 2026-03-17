@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,19 @@ public class ProjectsActivity extends AppCompatActivity {
         RecyclerView rvProjects = findViewById(R.id.rvProjects);
         rvProjects.setLayoutManager(new LinearLayoutManager(this));
 
-        projectAdapter = new ProjectAdapter(); // Simplified constructor
+        projectAdapter = new ProjectAdapter(); 
+        projectAdapter.setOnItemClickListener(project -> {
+            Intent intent = new Intent(ProjectsActivity.this, ProjectDetailActivity.class);
+            intent.putExtra("PROJECT_ID", project.projectId);
+            intent.putExtra("PROJECT_NAME", project.title);
+            if (project.client != null) {
+                intent.putExtra("CLIENT_PHONE", project.client.phone);
+                intent.putExtra("CLIENT_EMAIL", project.client.email);
+            }
+            // Pass other basic details if available to show immediately
+            // intent.putExtra("PROJECT_LOCATION", project.location); // Field removed
+            startActivity(intent);
+        });
         rvProjects.setAdapter(projectAdapter);
 
         EditText etSearch = findViewById(R.id.etSearchProjects);
@@ -75,42 +87,111 @@ public class ProjectsActivity extends AppCompatActivity {
     }
 
     private void loadProjects() {
-        String url = "http://10.0.2.2:5000/projects?contractor_id=1"; 
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(android.view.View.VISIBLE);
 
-        StringRequest request = new StringRequest(Request.Method.GET, url,
+        android.content.SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+        int contractorId = sp.getInt("contractor_id", -1);
+        
+        if (contractorId == -1) {
+             sp = getSharedPreferences("ProBuilderPrefs", MODE_PRIVATE); // Fallback
+             contractorId = sp.getInt("contractor_id", -1);
+        }
+
+        if (contractorId == -1) {
+            Toast.makeText(this, "Session invalid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = Constants.BASE_URL + "get_projects.php"; // Corrected URL
+        
+        // Append client_id if present
+        if (getIntent().hasExtra("CLIENT_ID")) {
+            int clientId = getIntent().getIntExtra("CLIENT_ID", -1);
+            if (clientId != -1) {
+                url += "?client_id=" + clientId;
+            }
+        }
+        
+        Log.d("ProjectsActivity", "Calling URL: " + url);
+
+        AuthJsonRequest request = new AuthJsonRequest(
+                this,
+                Request.Method.GET,
+                url,
+                null,
                 response -> {
+                    progressBar.setVisibility(android.view.View.GONE);
+                    Log.d("PROJECT_LIST_RAW", response.toString()); // MANDATORY LOG
+
                     try {
-                        List<Project> newProjects = new ArrayList<>();
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONArray jsonArray = jsonObject.getJSONArray("projects");
+                        org.json.JSONObject jsonRoot = response;
+                        
+                        if (jsonRoot.optString("status").equals("success")) {
+                            org.json.JSONArray jsonArray = jsonRoot.getJSONArray("projects");
+                            List<Project> newProjects = new ArrayList<>();
+                            java.util.Set<Integer> seenIds = new java.util.HashSet<>();
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            Project project = new Project(
-                                    obj.getInt("id"),
-                                    obj.getString("project_name"),
-                                    obj.getString("location"),
-                                    obj.getString("client_name"),
-                                    obj.getString("client_phone"),
-                                    obj.getString("start_date"),
-                                    obj.getString("end_date"),
-                                    obj.getString("status")
-                            );
-                            newProjects.add(project);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                org.json.JSONObject obj = jsonArray.getJSONObject(i);
+                                int pId = obj.getInt("project_id");
+
+                                if (seenIds.contains(pId)) {
+                                    Log.w("PROJECTS_DEBUG", "Duplicate project ignored: " + pId);
+                                    continue;
+                                }
+                                seenIds.add(pId);
+
+                                Project project = new Project();
+                                project.projectId = pId;
+                                project.title = obj.getString("title");
+                                project.status = obj.getString("status");
+                                project.overallProgress = obj.optInt("overall_progress", 0);
+                                
+                                // Dates
+                                project.startDate = obj.optString("start_date", "");
+                                project.endDate = obj.optString("end_date", "");
+
+                                // Client Logic
+                                if (!obj.isNull("client")) {
+                                    org.json.JSONObject clientObj = obj.getJSONObject("client");
+                                    project.client = new Client();
+                                    project.client.clientId = clientObj.optInt("id", -1);
+                                    project.client.name = clientObj.optString("name", "Unknown");
+                                    project.client.phone = clientObj.optString("phone", "");
+                                    project.client.email = clientObj.optString("email", "");
+                                    
+                                    project.clientName = project.client.name; // Flattened for Adapter
+                                } else {
+                                    project.client = null;
+                                    project.clientName = "No client assigned";
+                                }
+
+                                newProjects.add(project);
+                            }
+
+                            if (newProjects.isEmpty()) {
+                                Toast.makeText(this, "No projects found", Toast.LENGTH_SHORT).show();
+                            }
+                            projectAdapter.setProjects(newProjects);
+                        } else {
+                            Toast.makeText(this, jsonRoot.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                        projectAdapter.setProjects(newProjects);
-
                     } catch (Exception e) {
-                        Log.e("ProjectsActivity", "JSON Parsing Error: " + e.getMessage());
-                        Toast.makeText(this, "Error parsing project data.", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                        Toast.makeText(this, "Response parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> {
-                    Log.e("ProjectsActivity", "Volley Error: " + error.toString());
-                    Toast.makeText(this, "Failed to load projects from server.", Toast.LENGTH_SHORT).show();
-                });
 
-        Volley.newRequestQueue(this).add(request);
+                error -> {
+                    progressBar.setVisibility(android.view.View.GONE);
+                    Log.e("ProjectsActivity", error.toString());
+                    Toast.makeText(this, "Failed to load from server", Toast.LENGTH_SHORT).show();
+                }
+        );
+
+        request.setShouldCache(false);
+        MyVolley.get(this).add(request);
     }
 
     @Override

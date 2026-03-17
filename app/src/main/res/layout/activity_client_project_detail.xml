@@ -1,217 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="#F8F9FE">
 
-    <!-- Toolbar -->
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:padding="16dp"
-        android:elevation="4dp"
-        android:gravity="center_vertical">
-        
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"/>
+        android:layout_height="150dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="#FFFFFF">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Project Details"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#0B3C5D"
-            android:layout_marginStart="16dp"/>
-    </LinearLayout>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="#1E6FE3"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar">
 
-    <ScrollView
+            <!-- Background Image/Gradient -->
+            <ImageView
+                android:id="@+id/ivHeaderBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_gradient_blue" 
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:background="#1E6FE3"/>
+            
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000"/>
+
+            <!-- Header Content -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:padding="24dp"
+                android:layout_marginBottom="16dp"
+                app:layout_collapseMode="parallax">
+
+                <TextView
+                    android:id="@+id/tvProjectName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Residential Villa"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Banjara Hills, Hyderabad"
+                    android:textSize="16sp"
+                    android:textColor="#E0E0E0"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:navigationIconTint="#000000"
+                app:title="Project Details">
+
+                <ImageView
+                    android:id="@+id/ivChatProjectClient"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Chat"
+                    android:src="@drawable/ic_chat"
+                    app:tint="#000000" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp">
 
-            <!-- Title Card -->
+            <!-- Perfect Status Bar Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp">
                 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
-                    
-                    <TextView
-                        android:id="@+id/tvProjectName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Villa Construction"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B3C5D"/>
-                        
-                    <TextView
-                        android:id="@+id/tvLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Location: Whitefield, Bangalore"
-                        android:textSize="14sp"
-                        android:textColor="#757575"
-                        android:layout_marginTop="4dp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Timeline -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Timeline"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#424242"
-                android:layout_marginBottom="8dp"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
                     
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Start Date:"
-                            android:textStyle="bold"
-                            android:textColor="#424242"
-                            android:layout_marginEnd="8dp"/>
-                        <TextView
-                            android:id="@+id/tvStartDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Jan 01, 2026"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Est. Completion:"
-                            android:textStyle="bold"
-                            android:textColor="#424242"
-                            android:layout_marginEnd="8dp"/>
-                        <TextView
-                            android:id="@+id/tvEndDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dec 31, 2026"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Progress -->
-             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#424242"
-                android:layout_marginBottom="8dp"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                    
-                    <TextView
-                        android:id="@+id/tvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="In Progress - On Track"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#2E7D32"
-                        android:layout_marginBottom="8dp"/>
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
                         
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Overall Progress"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#333333"/>
+                        
+                         <TextView
+                            android:id="@+id/tvProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="65%"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#1E6FE3"/>
+                    </LinearLayout>
+
+                    <!-- Custom Styled Progress Bar -->
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
                         android:layout_height="12dp"
                         android:progress="65"
-                        android:progressTint="#1E6FE3"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="65% Completed"
-                        android:textSize="12sp"
-                        android:textColor="#757575"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="4dp"/>
-                        
-                     <View
+                        android:progressDrawable="@drawable/rounded_progress_bar_gradient"/>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#EEEEEE"
-                        android:layout_marginVertical="12dp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Latest Contractor Note:"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
-                        
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Foundation work completed. Starting ground floor walls next week."
-                        android:textSize="14sp"
-                        android:textColor="#616161"
-                        android:layout_marginTop="4dp"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:background="#F5F9FF"
+                        android:padding="12dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="STATUS: IN PROGRESS"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#1E6FE3"
+                            android:letterSpacing="0.05"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Project Stats Grid (Budget, Paid, etc) (Optional, keeping it simple as per request for "Perfect Status Bar") -->
+             <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:baselineAligned="false">
+                    
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="BUDGET"
+                             android:textSize="11sp"
+                             android:textColor="#888"/>
+                        <TextView
+                             android:id="@+id/tvBudget"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             tools:text="₹50L"
+                             android:textStyle="bold"
+                             android:textColor="#333"
+                             android:textSize="16sp"
+                             android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                    
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#EEE"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="START DATE"
+                             android:textSize="11sp"
+                             android:textColor="#888"/>
+                        <TextView
+                             android:id="@+id/tvStartDate"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             tools:text="Jan 01"
+                             android:textStyle="bold"
+                             android:textColor="#333"
+                             android:textSize="16sp"
+                             android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#EEE"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="END DATE"
+                             android:textSize="11sp"
+                             android:textColor="#888"/>
+                        <TextView
+                             android:id="@+id/tvEndDate"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             tools:text="Dec 31"
+                             android:textStyle="bold"
+                             android:textColor="#333"
+                             android:textSize="16sp"
+                             android:layout_marginTop="4dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Daily Work Logs Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily Work Logs"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"/>
+                
+                <View
+                     android:layout_width="0dp"
+                     android:layout_height="1dp"
+                     android:layout_weight="1"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDailyProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_daily_progress_modern"/>
+
+            <TextView
+                android:id="@+id/tvNoDailyProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No work logs available yet."
+                android:gravity="center"
+                android:padding="40dp"
+                android:textColor="#999"
+                android:visibility="gone"/>
+
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Floating Action Button for Contact (Optional) -->
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

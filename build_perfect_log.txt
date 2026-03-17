@@ -1,0 +1,38 @@
+Initialized native services in: C:\Users\hp\.gradle\native
+Initialized jansi services in: C:\Users\hp\.gradle\native
+Found daemon DaemonInfo{pid=20804, address=[3f37c513-5fa3-4e4a-80e0-f29b45184d74 port:60019, addresses:[/127.0.0.1]], state=Idle, lastBusy=1773471277560, context=DefaultDaemonContext[uid=4a9cea0c-e9b4-4fde-bdd3-7aa539d6d2f8,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\hp\.gradle\daemon,pid=20804,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=IN,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Java\jdk-24 (no JDK specified, using current Java home), daemonOpts=[-Xmx2048m, -Dfile.encoding=UTF-8, -Duser.country=IN, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=4a9cea0c-e9b4-4fde-bdd3-7aa539d6d2f8,javaHome=C:\Program Files\Android\Android Studio\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\hp\.gradle\daemon,pid=20804,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=IN,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+Removing 0 daemon stop events from registry
+Previous Daemon (12228) stopped at Sat Mar 14 11:33:17 IST 2026 after being idle for 0 minutes and not recently used and to reclaim system physical memory
+Previous Daemon (19168) stopped at Sat Mar 14 12:12:58 IST 2026 other compatible daemons were started and after being idle for 0 minutes and not recently used
+Starting a Gradle Daemon, 1 incompatible and 2 stopped Daemons could not be reused, use --status for details
+Starting process 'Gradle build daemon'. Working directory: C:\Users\hp\.gradle\daemon\9.1.0 Command: C:\Program Files\Java\jdk-24\bin\java.exe --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED --enable-native-access=ALL-UNNAMED -Xmx2048m -Dfile.encoding=UTF-8 -Duser.country=IN -Duser.language=en -Duser.variant -cp C:\Users\hp\.gradle\wrapper\dists\gradle-9.1.0-bin\9agqghryom9wkf8r80qlhnts3\gradle-9.1.0\lib\gradle-daemon-main-9.1.0.jar -javaagent:C:\Users\hp\.gradle\wrapper\dists\gradle-9.1.0-bin\9agqghryom9wkf8r80qlhnts3\gradle-9.1.0\lib\agents\gradle-instrumentation-agent-9.1.0.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.1.0
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 5.449 secs.
+The client will now receive all logging from the daemon (pid: 13408). The daemon log file: C:\Users\hp\.gradle\daemon\9.1.0\daemon-13408.out.log
+Starting build in new daemon [memory: 2 GiB]
+Using 12 worker leases.
+Received JVM installation metadata from 'C:\Program Files\Java\jdk-24': {JAVA_HOME=C:\Program Files\Java\jdk-24, JAVA_VERSION=24.0.2, JAVA_VENDOR=Oracle Corporation, RUNTIME_NAME=Java(TM) SE Runtime Environment, RUNTIME_VERSION=24.0.2+12-54, VM_NAME=Java HotSpot(TM) 64-Bit Server VM, VM_VERSION=24.0.2+12-54, VM_VENDOR=Oracle Corporation, OS_ARCH=amd64}
+Watching the file system is configured to be enabled if available
+Now considering [C:\Users\hp\AndroidStudioProjects\ProBuilder] as hierarchies to watch
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\settings.gradle.kts'.
+Projects loaded. Root project using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Included projects: [root project 'ProBuilder', project ':app']
+
+> Configure project :
+Evaluating root project 'ProBuilder' using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '8.9.1', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.android', version: '2.2.10', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.2.10', apply: false]
+
+> Configure project :app
+Evaluating project ':app' using build file 'C:\Users\hp\AndroidStudioProjects\ProBuilder\app\build.gradle.kts'.
+Caching disabled for Kotlin DSL script compilation (Project/TopLevel/stage1) because:
+  Build cache is disabled
+^CTerminate batch job (Y/N)? Terminate batch job (Y/N)? 

@@ -38,6 +38,22 @@
             android:text="Update Profile" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContactUs"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Contact Us"
+            android:textAllCaps="false"
+            android:textColor="#1E6FE3"
+            app:cornerRadius="8dp"
+            app:strokeColor="#1E6FE3"
+            app:icon="@drawable/ic_email"
+            app:iconTint="#1E6FE3"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
@@ -151,13 +167,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        app:startIconDrawable="@drawable/ic_business"
-                        android:hint="Company Name">
+                        app:startIconDrawable="@drawable/ic_work_final"
+                        android:hint="Role">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etCompany"
+                            android:id="@+id/etRole"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="false" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:startIconDrawable="@drawable/ic_calendar"
+                        android:hint="Joined Date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etJoinedDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="false" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

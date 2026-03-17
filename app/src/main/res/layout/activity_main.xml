@@ -19,13 +19,14 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_probuilder_logo" />
+            android:contentDescription="@string/desc_app_logo"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pro Builder Dashboard"
+            android:text="@string/dashboard_probuilder"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -33,6 +34,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:contentDescription="@string/desc_icon_logout"
             android:src="@drawable/ic_logout" />
 
     </LinearLayout>
@@ -54,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Welcome, Contractor!"
+                android:text="@string/welcome_contractor"
                 android:textSize="18sp" />
 
             <!-- Grid of Cards -->
@@ -82,13 +84,14 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_projects" />
+                            android:src="@drawable/ic_projects" 
+                            android:contentDescription="@string/desc_icon_projects"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Projects" />
+                            android:text="@string/projects" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -111,13 +114,14 @@
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:src="@drawable/ic_clients" />
+                            android:src="@drawable/ic_clients" 
+                            android:contentDescription="@string/desc_icon_clients"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Clients" />
+                            android:text="@string/clients" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

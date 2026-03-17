@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +30,41 @@ public class InviteSuccessActivity extends AppCompatActivity {
         }
 
         // Copy link to clipboard
+        // Copy link to clipboard
         btnCopyLink.setOnClickListener(v -> {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("Invite Link", inviteLink);
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(this, "Link copied to clipboard", Toast.LENGTH_SHORT).show();
+            String textToCopy = tvInviteLink.getText().toString().trim(); // Ensure no whitespace
+            if (textToCopy.isEmpty()) {
+                Toast.makeText(this, "No link to copy", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard != null) {
+                    ClipData clip = ClipData.newPlainText("ProBuilder Invite Link", textToCopy);
+                    clipboard.setPrimaryClip(clip);
+                    
+                    Toast.makeText(this, "Link copied to clipboard", Toast.LENGTH_SHORT).show();
+                    Log.d("CLIPBOARD", "Copied: " + textToCopy);
+                    
+                    // Visual feedback
+                    // Save current state to restore later
+                     final String previousText = btnCopyLink.getText().toString();
+                    
+                    btnCopyLink.setText("Copied!");
+                    btnCopyLink.setEnabled(false);
+                    
+                    btnCopyLink.postDelayed(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            btnCopyLink.setText(previousText);
+                            btnCopyLink.setEnabled(true);
+                        }
+                    }, 2000);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to copy link", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Share link via other apps

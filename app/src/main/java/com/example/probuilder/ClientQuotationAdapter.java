@@ -33,9 +33,19 @@ public class ClientQuotationAdapter extends RecyclerView.Adapter<ClientQuotation
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Quotation quotation = quotations.get(position);
-        holder.tvQuotationTitle.setText("Quotation #" + quotation.getId()); // Using ID as title for now
+        holder.tvQuotationTitle.setText(quotation.getTitle());
         holder.tvDate.setText(quotation.getCreatedAt());
-        holder.tvProjectLink.setText("Project: " + quotation.getProjectName());
+        // Show Project Name and Status
+        String statusText = quotation.getProjectName() + "\nStatus: " + quotation.getStatus();
+        holder.tvProjectLink.setText(statusText);
+
+        if (quotation.getStatus().equalsIgnoreCase("Accepted")) {
+            holder.tvProjectLink.setTextColor(android.graphics.Color.parseColor("#2E7D32"));
+        } else if (quotation.getStatus().equalsIgnoreCase("Rejected")) {
+            holder.tvProjectLink.setTextColor(android.graphics.Color.RED);
+        } else {
+            holder.tvProjectLink.setTextColor(android.graphics.Color.parseColor("#F57C00"));
+        }
         holder.tvAmount.setText("₹ " + quotation.getAmount());
         
         holder.itemView.setOnClickListener(v -> listener.onQuotationClick(quotation));

@@ -36,9 +36,11 @@ public class StockAlertAdapter extends RecyclerView.Adapter<StockAlertAdapter.St
         if ("Critical".equalsIgnoreCase(alert.getStatus())) {
             holder.tvStatus.setBackgroundResource(R.drawable.status_critical_background);
             holder.tvStatus.setTextColor(Color.WHITE);
+            holder.cardStockAlert.setCardBackgroundColor(Color.parseColor("#FFCDD2")); // Light Red (Increased intensity)
         } else {
             holder.tvStatus.setBackgroundResource(R.drawable.status_low_background);
             holder.tvStatus.setTextColor(Color.BLACK);
+            holder.cardStockAlert.setCardBackgroundColor(Color.parseColor("#FFF59D")); // Light Yellow (Increased intensity)
         }
     }
 
@@ -51,12 +53,15 @@ public class StockAlertAdapter extends RecyclerView.Adapter<StockAlertAdapter.St
         TextView tvItemName, tvStockDetails, tvStatus;
         com.google.android.material.imageview.ShapeableImageView ivStockImage;
 
+        com.google.android.material.card.MaterialCardView cardStockAlert;
+
         public StockViewHolder(@NonNull View itemView) {
             super(itemView);
             tvItemName = itemView.findViewById(R.id.tvItemName);
             tvStockDetails = itemView.findViewById(R.id.tvStockDetails);
             tvStatus = itemView.findViewById(R.id.tvStatus);
             ivStockImage = itemView.findViewById(R.id.ivStockImage);
+            cardStockAlert = itemView.findViewById(R.id.cardStockAlert);
         }
     }
 }

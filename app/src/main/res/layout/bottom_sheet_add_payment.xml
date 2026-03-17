@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Payment"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Client"
+        android:textSize="12sp"
+        android:textColor="#757575"/>
+
+    <Button
+        android:id="@+id/btnSelectClient"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:text="Select Client"
+        android:textColor="#555555"
+        android:backgroundTint="#F5F5F5"
+        android:gravity="start|center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Project"
+        android:textSize="12sp"
+        android:textColor="#757575"/>
+
+    <Button
+        android:id="@+id/btnSelectProject"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:text="Select Project"
+        android:textColor="#555555"
+        android:backgroundTint="#F5F5F5"
+        android:gravity="start|center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/ic_arrow_drop_down"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount Received (₹)"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment Mode"
+        android:textSize="12sp"
+        android:textColor="#757575"/>
+    
+    <Spinner
+        android:id="@+id/spinnerMode"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/etNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Notes (optional)"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnSavePayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Payment"
+        android:backgroundTint="@color/colorPrimary"/>
+
+</LinearLayout>

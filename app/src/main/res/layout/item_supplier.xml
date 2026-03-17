@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
@@ -26,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Supplier Name"
+                tools:text="Supplier Name"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -38,7 +39,7 @@
                 android:background="@drawable/rounded_square_bg_light_blue"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="4dp"
-                android:text="Active"
+                android:text="@string/status_active"
                 android:textColor="#1E6FE3"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Material Supply"
+            android:text="@string/label_material_supply"
             android:textColor="#616161"
             android:textSize="14sp" />
 
@@ -69,6 +70,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_phone"
+                android:contentDescription="@string/desc_icon_phone"
                 app:tint="#1E6FE3" />
 
             <TextView
@@ -76,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="+91 XXXXX XXXXX"
+                tools:text="+91 XXXXX XXXXX"
                 android:textColor="#424242"
                 android:textSize="14sp" />
 
@@ -89,6 +91,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@android:drawable/btn_star_big_on"
+                android:contentDescription="@string/desc_icon_rating"
                 app:tint="#FBC02D"/>
 
             <TextView
@@ -96,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="4.5"
+                tools:text="4.5"
                 android:textColor="#424242"
                 android:textStyle="bold"
                 android:textSize="14sp" />

@@ -165,47 +165,46 @@
             </LinearLayout>
 
             <!-- Progress Indicator -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@android:color/transparent">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:paddingBottom="8dp">
                 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp">
                     
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Budget Utilization"
                         android:textSize="14sp"
-                        android:textColor="#616161"
-                        android:layout_marginBottom="8dp"/>
+                        android:textColor="#616161"/>
 
-                    <ProgressBar
-                        android:id="@+id/pbBudget"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="12dp"
-                        android:progressDrawable="@drawable/rounded_progress_bar"
-                        android:progress="30"
-                        android:max="100"/>
-                        
                     <TextView
                         android:id="@+id/tvUtilizationPercentage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="30% Used"
-                        android:textSize="12sp"
-                        android:textColor="#757575"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="4dp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"/>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+
+                <ProgressBar
+                    android:id="@+id/pbBudget"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:progressDrawable="@drawable/rounded_progress_bar"
+                    android:progress="30"
+                    android:max="100"/>
+            </LinearLayout>
             
             <TextView
                 android:layout_width="wrap_content"

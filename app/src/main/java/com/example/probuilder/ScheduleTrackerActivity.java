@@ -51,7 +51,7 @@ public class ScheduleTrackerActivity extends AppCompatActivity {
     private void loadData() {
         List<ProjectSchedule> projects = ScheduleRepository.getInstance().getProjects();
         
-        adapter = new ScheduleTrackerAdapter(); 
+        adapter = new ScheduleTrackerAdapter(this); // Pass context for clicks
         adapter.setSchedules(projects);
         rvSchedule.setAdapter(adapter);
 

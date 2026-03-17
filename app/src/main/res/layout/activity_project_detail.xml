@@ -1,122 +1,565 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA"
-    tools:context=".ProjectDetailActivity">
+    android:background="#F5F7FA">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="#1E6FE3"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="Project Details"
+            app:titleTextColor="@android:color/white">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="Project Details"
-                app:titleTextColor="@android:color/white" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                <ImageView
+                    android:id="@+id/ivDeleteProject"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="Delete Project"
+                    android:src="@drawable/ic_delete"
+                    app:tint="#FF6B6B" />
+
+                <ImageView
+                    android:id="@+id/ivChatProject"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Chat"
+                    android:src="@drawable/ic_chat"
+                    app:tint="@android:color/white" />
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
 
             <TextView
-                android:id="@+id/tvProjectName"
+                android:id="@+id/tvProjectNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:text="Villa Construction - Whitefield" />
-
-            <TextView
-                android:id="@+id/tvClientName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                tools:text="For Rakesh Kumar" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                tools:text="Residential Villa - Banjara Hills"
                 android:textColor="@android:color/white"
-                tools:text="On Schedule" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvProjectStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                tools:text="In Progress"
+                android:textColor="#E0E0E0"
+                android:textSize="12sp" />
 
             <ProgressBar
-                android:id="@+id/pbProgress"
+                android:id="@+id/pbOverallProgress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                tools:progress="68" />
+                android:layout_height="8dp"
+                android:layout_marginTop="12dp"
+                android:max="100"
+                android:progressDrawable="@drawable/rounded_progress_bar"
+                android:backgroundTint="#80FFFFFF"/>
+            <!-- Note: progressTint black is placeholder, usually we use a custom drawable for the dark bar on blue bg -->
 
-             <TextView
-                android:id="@+id/tvProgressPercent"
+            <TextView
+                android:id="@+id/tvOverallProgressPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:text="68%" />
+                android:layout_marginTop="4dp"
+                tools:text="65% Complete"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tvStatusMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="12dp"
-                android:visibility="gone"
-                tools:text="Project is slightly behind schedule." 
-                tools:visibility="visible"/>
-
-            <TextView
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCompleteProject"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Timeline" 
-                android:textStyle="bold"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <TableRow>
-                        <TextView android:text="Planned Start" />
-                        <TextView android:id="@+id/tvPlannedStart" android:gravity="end" tools:text="24 Jan 2025" />
-                    </TableRow>
-
-                    <TableRow android:layout_marginTop="8dp">
-                        <TextView android:text="Planned End" />
-                        <TextView android:id="@+id/tvPlannedEnd" android:gravity="end" tools:text="15 Jun 2025" />
-                    </TableRow>
-                    
-                    <TableRow android:layout_marginTop="8dp">
-                        <TextView android:text="Expected Completion"/>
-                        <TextView android:id="@+id/tvExpectedEnd" android:gravity="end" tools:text="15 Jun 2025" />
-                    </TableRow>
-
-                </TableLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:text="Mark as Completed"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="20dp"
+                android:visibility="gone"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/mainContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <!-- Tabs -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupTabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipOverview"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/overview"
+                        android:checked="true" />
+                    
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipPhotos"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Photos" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipExpenses"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Expenses" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMaterials"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Materials" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <!-- Content Content -->
+            <!-- Ideally this would be a ViewPager, but user asked for scrolling content. 
+                 We will put specific layouts in a FrameLayout and toggle visibility for simplicity in this task. -->
+            
+            <FrameLayout
+                android:id="@+id/contentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                
+                <!-- OVERVIEW LAYOUT -->
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/srlOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ScrollView
+                    android:id="@+id/layoutOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+
+
+                        <!-- Client Info -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Client Information"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewClientName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    tools:text="Ravi Kumar"
+                                    android:textSize="16sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:src="@drawable/ic_phone"
+                                        android:contentDescription="@string/desc_icon_phone"
+                                        app:tint="#757575" />
+
+                                    <TextView
+                                        android:id="@+id/tvOverviewClientPhone"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        tools:text="+91 98765 43210"
+                                        android:textColor="#757575" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:src="@drawable/ic_email"
+                                        android:contentDescription="@string/desc_icon_email"
+                                        app:tint="#757575" />
+
+                                    <TextView
+                                        android:id="@+id/tvOverviewClientEmail"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="8dp"
+                                        tools:text="ravi@email.com"
+                                        android:textColor="#757575" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Project Info -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/project_info"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/budgetWarning"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="@string/budget_exceeded"
+                                    android:textColor="#D32F2F"
+                                    android:textStyle="bold"
+                                    android:visibility="gone"
+                                    tools:visibility="visible" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    tools:text="Address: Plot 45, Banjara Hills, Hyderabad"
+                                    android:textColor="#757575" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewStartDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    tools:text="Start Date: 01 Jan 2024"
+                                    android:textColor="#757575" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewCost"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    tools:text="Estimated Cost: ₹50.0L"
+                                    android:textColor="#757575" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewPaid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    tools:text="Total Paid: ₹35.0L"
+                                    android:textColor="#757575" />
+
+                                <TextView
+                                    android:id="@+id/tvOverviewPending"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    tools:text="Pending Amount: ₹15.0L"
+                                    android:textColor="#757575" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Stage Progress -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="80dp" 
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/stage_progress"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <!-- Dynamic Stages Container -->
+                                <LinearLayout
+                                    android:id="@+id/containerStages"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical" />
+
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </ScrollView>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                
+                <!-- Other Tabs Placeholders -->
+                <!-- PHOTOS LAYOUT -->
+                 <FrameLayout
+                    android:id="@+id/layoutPhotos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/srlPhotos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPhotos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:clipToPadding="false"/>
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                    <TextView
+                        android:id="@+id/tvNoPhotos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/photos_empty"
+                        android:textColor="#9E9E9E"
+                        android:visibility="gone"/>
+                 </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutExpenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="#E3F2FD"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#1E6FE3"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Total Expenses Used:"
+                                android:textColor="#1976D2"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvExpensesTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="₹ 50,000"
+                                android:textColor="#1E6FE3"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/srlExpenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvExpenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="16dp"
+                        android:paddingBottom="16dp" />
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                    <TextView
+                        android:id="@+id/tvNoExpenses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="No expenses recorded"
+                        android:visibility="gone"
+                        android:textColor="#757575"/>
+                </LinearLayout>
+
+                 <FrameLayout
+                    android:id="@+id/layoutMaterials"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/srlMaterials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMaterials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:padding="16dp" />
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                    <TextView
+                        android:id="@+id/tvNoMaterials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="No materials used"
+                        android:visibility="gone"
+                        android:textColor="#757575"/>
+                 </FrameLayout>
+
+            </FrameLayout>
     </LinearLayout>
 
-</ScrollView>
+    <!-- Bottom Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnWorkLog"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#1E6FE3"
+            android:text="@string/btn_work_log"
+            app:icon="@drawable/ic_add"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+
+        <Button
+            android:id="@+id/btnNavExpense"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#1E6FE3"
+            android:text="@string/btn_expense"
+            app:icon="@drawable/ic_rupee"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnNavMaterials"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="#1E6FE3"
+            android:text="@string/btn_materials"
+            app:icon="@drawable/ic_widgets"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

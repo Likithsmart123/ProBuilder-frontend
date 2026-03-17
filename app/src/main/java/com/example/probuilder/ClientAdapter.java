@@ -34,15 +34,37 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         return new ClientViewHolder(view);
     }
 
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Client client);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ClientViewHolder holder, int position) {
         Client client = clientList.get(position);
-        holder.tvClientName.setText(client.getName());
-        holder.tvClientEmail.setText(client.getEmail());
-        holder.tvClientPhone.setText(client.getPhone());
-        holder.tvClientInitial.setText(String.valueOf(client.getName().charAt(0)));
-        // The getActiveProjects() is a placeholder in the model for now
-        holder.tvActiveProjects.setText(client.getActiveProjects() + " Active Projects");
+        holder.tvClientName.setText(client.name);
+        holder.tvClientEmail.setText(client.email);
+        holder.tvClientPhone.setText(client.phone);
+        
+        if (client.name != null && !client.name.isEmpty()) {
+            holder.tvClientInitial.setText(String.valueOf(client.name.charAt(0)));
+        } else {
+            holder.tvClientInitial.setText("?");
+        }
+        
+        // Active projects removed from model, hiding or setting default
+        holder.tvActiveProjects.setText("");
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(client);
+            }
+        });
     }
 
     @Override
@@ -57,7 +79,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
         } else {
             text = text.toLowerCase();
             for (Client item : clientListFull) {
-                if (item.getName().toLowerCase().contains(text)) {
+                if (item.name != null && item.name.toLowerCase().contains(text)) {
                     clientList.add(item);
                 }
             }

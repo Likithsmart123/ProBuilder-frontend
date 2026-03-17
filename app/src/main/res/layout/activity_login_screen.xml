@@ -12,17 +12,15 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.6" />
 
     <!-- Logo Icon -->
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_square_bg_light_blue"
-        android:padding="16dp"
-        android:src="@drawable/ic_probuilder_logo"
-        app:tint="#FFFFFF" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/desc_app_logo"
+        android:src="@mipmap/ic_launcher" />
 
     <!-- Title -->
     <TextView
@@ -38,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="Contractor Project &amp; Quotation Management System"
         android:textColor="#E0E0E0"
@@ -60,7 +58,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="48dp"
@@ -99,7 +97,7 @@
     <!-- Spacer -->
     <Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="12dp" />
 
     <!-- Client Card (Acts as Button) -->
     <com.google.android.material.card.MaterialCardView
@@ -117,7 +115,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="20dp">
+            android:padding="16dp">
 
             <ImageView
                 android:layout_width="48dp"
@@ -157,7 +155,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1.4" />
 
     <!-- Footer -->
     <TextView

@@ -31,6 +31,13 @@ public class CostBreakdownAdapter extends RecyclerView.Adapter<CostBreakdownAdap
         holder.tvItemName.setText(item.getName());
         holder.tvItemAmount.setText(String.format(Locale.getDefault(), "₹ %,.0f", item.getAmount()));
         holder.pbItemUsage.setProgress(item.getPercentage());
+
+        holder.itemView.setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(v.getContext(), CategoryExpensesActivity.class);
+            intent.putExtra("category", item.getName());
+            intent.putExtra("total", item.getAmount());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

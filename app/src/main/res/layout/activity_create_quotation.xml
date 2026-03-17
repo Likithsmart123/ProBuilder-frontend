@@ -19,13 +19,14 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@android:color/white"/>
+            app:tint="@android:color/white"
+            android:contentDescription="@string/desc_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Create Quotation"
+            android:text="@string/create_quotation_title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -49,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select Client"
+                android:text="@string/label_select_client"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
@@ -59,19 +60,42 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
-                <Spinner
-                    android:id="@+id/spinnerClient"
+                android:layout_marginBottom="16dp"
+                android:layout_marginHorizontal="4dp">
+                
+                <FrameLayout
+                    android:id="@+id/flClientSelector"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"/>
+                    android:layout_height="56dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/tvSelectedClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:text="@string/label_select_client"
+                        android:textSize="16sp"
+                        android:textColor="#212121"
+                        android:paddingHorizontal="16dp"/>
+                        
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/ic_menu_search"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="16dp"
+                        app:tint="#757575" />
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Project Spinner -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select Project"
+                android:text="@string/label_select_project"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
@@ -81,11 +105,13 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:layout_marginHorizontal="4dp">
                 <Spinner
                     android:id="@+id/spinnerProject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="56dp"
                     android:paddingHorizontal="8dp"/>
             </com.google.android.material.card.MaterialCardView>
 
@@ -93,7 +119,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quotation Title"
+                android:text="@string/label_quotation_title"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
@@ -106,13 +132,16 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:layout_marginHorizontal="4dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etQuotationTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g. Initial Construction Estimate"
+                    android:hint="@string/hint_quotation_title"
+                    android:textColor="#000000"
+                    android:textColorHint="#4A4A4A"
                     android:inputType="textCapSentences"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Amount (₹)"
+                android:text="@string/label_total_amount"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
@@ -134,13 +163,16 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:layout_marginHorizontal="4dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etTotalAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0.00"
+                    android:hint="@string/hint_total_amount"
+                    android:textColor="#000000"
+                    android:textColorHint="#4A4A4A"
                     android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +181,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description (Optional)"
+                android:text="@string/label_description"
                 android:textStyle="bold"
                 android:textColor="#333333"
                 android:layout_marginBottom="8dp"/>
@@ -162,13 +194,16 @@
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="4dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter quotation details..."
+                    android:hint="@string/hint_description"
+                    android:textColor="#000000"
+                    android:textColorHint="#4A4A4A"
                     android:inputType="textMultiLine"
                     android:minLines="3"
                     android:gravity="top"/>
@@ -191,7 +226,9 @@
             android:id="@+id/btnCreateQuotation"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Create Quotation"
+            android:layout_marginStart="48dp"
+            android:layout_marginEnd="48dp"
+            android:text="@string/btn_create_quotation"
             android:backgroundTint="#1E6FE3"
             android:textColor="@android:color/white"
             android:textStyle="bold"

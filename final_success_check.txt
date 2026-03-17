@@ -1,0 +1,50 @@
+﻿Caching disabled for task ':app:extractDeepLinksRelease' because:
+  Build cache is disabled
+Skipping task ':app:extractDeepLinksRelease' as it is up-to-date.
+Resolve mutations for :app:processReleaseMainManifest (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:processReleaseMainManifest (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:processReleaseMainManifest UP-TO-DATE
+Caching disabled for task ':app:processReleaseMainManifest' because:
+  Build cache is disabled
+Skipping task ':app:processReleaseMainManifest' as it is up-to-date.
+Resolve mutations for :app:processReleaseManifest (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:processReleaseManifest (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:processReleaseManifest UP-TO-DATE
+Caching disabled for task ':app:processReleaseManifest' because:
+  Build cache is disabled
+Skipping task ':app:processReleaseManifest' as it is up-to-date.
+Resolve mutations for :app:processApplicationManifestReleaseForBundle (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:processApplicationManifestReleaseForBundle (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:processApplicationManifestReleaseForBundle UP-TO-DATE
+Caching disabled for task ':app:processApplicationManifestReleaseForBundle' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:processApplicationManifestReleaseForBundle' as it is up-to-date.
+Resolve mutations for :app:checkReleaseAarMetadata (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:checkReleaseAarMetadata (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkReleaseAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkReleaseAarMetadata' as it is up-to-date.
+Resolve mutations for :app:packageReleaseResources (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:packageReleaseResources (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:packageReleaseResources UP-TO-DATE
+Caching disabled for task ':app:packageReleaseResources' because:
+  Build cache is disabled
+Skipping task ':app:packageReleaseResources' as it is up-to-date.
+Resolve mutations for :app:parseReleaseLocalResources (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:parseReleaseLocalResources (Thread[#101,Execution worker Thread 2,5,main]) started.
+
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+Caching disabled for task ':app:parseReleaseLocalResources' because:
+  Build cache is disabled
+Skipping task ':app:parseReleaseLocalResources' as it is up-to-date.
+Resolve mutations for :app:processReleaseManifestForPackage (Thread[#101,Execution worker Thread 2,5,main]) started.
+:app:processReleaseManifestForPackage (Thread[#101,Execution worker Thread 2,5,main]) started.
+^CTerminate batch job (Y/N)? Terminate batch job (Y/N)? 

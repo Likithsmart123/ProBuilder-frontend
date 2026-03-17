@@ -25,7 +25,9 @@ public class ContractorSignUpActivity extends AppCompatActivity {
     TextView tvLogin;
 
     // Using the new Python backend URL
-    String SIGNUP_URL = "http://10.0.2.2:5000/signup";
+    String SIGNUP_URL = Constants.BASE_URL + "signup.php";
+
+    private com.google.android.material.textfield.TextInputLayout tilPassword, tilConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +39,34 @@ public class ContractorSignUpActivity extends AppCompatActivity {
         etPhone = findViewById(R.id.etPhone);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        tilPassword = findViewById(R.id.tilPassword);
+        tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
         tvLogin = findViewById(R.id.tvLogin);
+        android.widget.ImageView btnBack = findViewById(R.id.btnBack);
 
+        btnBack.setOnClickListener(v -> finish());
         btnCreateAccount.setOnClickListener(v -> signupUser());
 
         tvLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, ContractorLoginActivity.class));
             finish(); // Ensure this activity is closed
         });
+
+        setupErrorClearing();
+    }
+
+    private void setupErrorClearing() {
+        android.text.TextWatcher watcher = new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilPassword.setError(null);
+                tilConfirmPassword.setError(null);
+            }
+            @Override public void afterTextChanged(android.text.Editable s) {}
+        };
+        etPassword.addTextChangedListener(watcher);
+        etConfirmPassword.addTextChangedListener(watcher);
     }
 
     private void signupUser() {
@@ -59,6 +80,9 @@ public class ContractorSignUpActivity extends AppCompatActivity {
         String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
         String confirmPassword = etConfirmPassword.getText() != null ? etConfirmPassword.getText().toString().trim() : "";
 
+        tilPassword.setError(null);
+        tilConfirmPassword.setError(null);
+
         if (name.isEmpty() || email.isEmpty() || phone.isEmpty()
                 || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
@@ -66,65 +90,79 @@ public class ContractorSignUpActivity extends AppCompatActivity {
             return;
         }
 
+        // Strict Password Validation
+        if (password.length() < 8) {
+            tilPassword.setError("Password must be at least 8 characters");
+            btnCreateAccount.setEnabled(true);
+            return;
+        }
+        if (!password.matches(".*[0-9].*")) {
+            tilPassword.setError("Password must contain at least one number");
+            btnCreateAccount.setEnabled(true);
+            return;
+        }
+        if (!password.matches(".*[a-zA-Z].*")) {
+            tilPassword.setError("Password must contain at least one letter");
+            btnCreateAccount.setEnabled(true);
+            return;
+        }
+        if (!password.matches(".*[@#$%^&+=!].*")) {
+            tilPassword.setError("Password must contain special characters (@#$%^&+=!)");
+            btnCreateAccount.setEnabled(true);
+            return;
+        }
+
         if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            tilConfirmPassword.setError("Passwords do not match");
             btnCreateAccount.setEnabled(true); // Re-enable button
             return;
         }
 
-        StringRequest request = new StringRequest(Request.Method.POST, SIGNUP_URL,
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                SIGNUP_URL,
                 response -> {
+                    String res = response.trim();
+                    Log.d("SIGNUP_RESPONSE", res);
 
-                    response = response.trim();
-                    Log.d("SignupResponse", "Server response: " + response);
-
-                    switch (response) {
-                        case "success":
-                            Toast.makeText(this, "Account created. Please login.", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(this, ContractorLoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                            break;
-
-                        case "exists":
-                            Toast.makeText(this, "Email already registered", Toast.LENGTH_SHORT).show();
-                            btnCreateAccount.setEnabled(true); // Re-enable button
-                            break;
-
-                        case "empty":
-                            Toast.makeText(this, "Missing fields sent to server", Toast.LENGTH_SHORT).show();
-                            btnCreateAccount.setEnabled(true); // Re-enable button
-                            break;
-
-                        default:
-                            Toast.makeText(this, "Signup failed: " + response, Toast.LENGTH_SHORT).show();
-                            btnCreateAccount.setEnabled(true); // Re-enable button
-                            break;
+                    if (res.equals("success")) {
+                        Toast.makeText(this, "Signup successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ContractorSignUpActivity.this, ContractorLoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else if (res.equals("missing")) {
+                        Toast.makeText(this, "Fill all details", Toast.LENGTH_SHORT).show();
+                        btnCreateAccount.setEnabled(true);
+                    } else if (res.equals("password_mismatch")) {
+                        tilConfirmPassword.setError("Passwords do not match");
+                        btnCreateAccount.setEnabled(true);
+                    } else if (res.equals("email_exists")) {
+                        Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show();
+                        btnCreateAccount.setEnabled(true);
+                    } else {
+                        Toast.makeText(this, "Server error", Toast.LENGTH_SHORT).show();
+                        btnCreateAccount.setEnabled(true);
                     }
                 },
                 error -> {
-                    Log.e("SignupError", "Volley error: " + error);
-                    Toast.makeText(this, "Network Error: " + error, Toast.LENGTH_LONG).show();
-                    btnCreateAccount.setEnabled(true); // Re-enable button
+                    Log.e("SIGNUP_ERROR", error.toString());
+                    Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                    btnCreateAccount.setEnabled(true);
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
+                // Keys must match backend exactly as per user instruction
                 params.put("name", name);
                 params.put("email", email);
                 params.put("phone", phone);
                 params.put("password", password);
+                params.put("confirm_password", confirmPassword);
                 return params;
             }
         };
-
-        // Set a longer timeout to prevent TimeoutError
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                30000, // 30 seconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         Volley.newRequestQueue(this).add(request);
     }
